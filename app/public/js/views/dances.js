@@ -5,17 +5,14 @@ $(document).ready(function(){
     $('#account-form').ajaxForm({
 	beforeSubmit : function(formData, jqForm, options){
 	    formData.push({name:'dance_hungariantitle[0]', value:$('#dance1-hungariantitle-tf').val()})
+	    console.log(formData);
 	    return true;
 	},
 	success	: function(responseText, status, xhr, $form){
 	    if (status == 'success') hc.onUpdateSuccess();
 	},
 	error : function(e){
-	    if (e.responseText == 'email-taken'){
-		av.showInvalidEmail();
-	    }	else if (e.responseText == 'username-taken'){
-		av.showInvalidUserName();
-	    }
+	    console.log(e);
 	}
     });
     $('#name-tf').focus();

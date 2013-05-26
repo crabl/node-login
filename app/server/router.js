@@ -86,6 +86,7 @@ module.exports = function(app) {
  
     // dance information page //
     app.get('/dances', function(req, res) {
+	console.log(req.session.user);
 	if (req.session.user == null){
 	    // if user is not logged-in redirect back to login page //
 	    res.redirect('/');
@@ -99,9 +100,10 @@ module.exports = function(app) {
     });
     
     app.post('/dances', function(req, res){
-	if (req.param('user') != undefined) {
+	console.log("Posting for "+req.session.user.user);
+	if (req.session.user != undefined) {
 	    AM.updateDances({
-		user: req.param('user'),
+		user: req.session.user.user,
 		dances: {
 		    'dance_hungariantitle': [req.param('dance1-hungariantitle'), 
 					     req.param('dance2-hungariantitle'),
@@ -136,12 +138,7 @@ module.exports = function(app) {
 		    res.send('error-updating-account', 400);
 		}	else{
 		    req.session.user = o;
-		    // update the user's login cookies if they exists //
-		    if (req.cookies.user != undefined && req.cookies.pass != undefined){
-			res.cookie('user', o.user, { maxAge: 900000 });
-			res.cookie('pass', o.pass, { maxAge: 900000 });	
-		    }
-		    res.send('ok', 200);
+		    res.send('success', 200);
 		}
 	    });
 	}	else if (req.param('logout') == 'true'){
