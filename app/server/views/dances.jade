@@ -1,3 +1,4 @@
+
 extends layout
 
 block content
@@ -7,11 +8,11 @@ block content
         ul#global-nav.nav.pull-left
           a(href='#').brand WCHFF 2013
           ul.nav
-            li.active
+            li 
               a(href='/home') Group Info
-            li
+            li 
               a(href='/transport') Transportation
-            li
+            li.active
               a(href='/dances') Dances
             li
               a(href='/participants') Participants
@@ -23,7 +24,7 @@ block content
           i.icon-lock.icon-white
           | Sign Out
 
-  include account
+  include account-dances
   include modals/alert
   include modals/confirm
 

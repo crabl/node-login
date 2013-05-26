@@ -3,8 +3,8 @@ function AccountValidator(){
 
 // build array maps of the form inputs & control groups //
 
-	this.formFields = [$('#name-tf'), $('#email-tf'), $('#user-tf'), $('#pass-tf')];
-	this.controlGroups = [$('#name-cg'), $('#email-cg'), $('#user-cg'), $('#pass-cg')];
+    this.formFields = [$('#name-tf'), $('#email-tf'), $('#groupname-tf'), $('#user-tf'), $('#pass-tf')];
+    this.controlGroups = [$('#name-cg'), $('#email-cg'), $('groupname-cg'), $('#user-cg'), $('#pass-cg')];
 	
 // bind the form-error modal window to this controller to display any errors //
 	
@@ -46,7 +46,7 @@ function AccountValidator(){
 AccountValidator.prototype.showInvalidEmail = function()
 {
 	this.controlGroups[1].addClass('error');
-	this.showErrors(['That email address is already in use.']);
+	this.showErrors(['That e-mail address is already in use.']);
 }
 
 AccountValidator.prototype.showInvalidUserName = function()
@@ -57,24 +57,28 @@ AccountValidator.prototype.showInvalidUserName = function()
 
 AccountValidator.prototype.validateForm = function()
 {
-	var e = [];
-	for (var i=0; i < this.controlGroups.length; i++) this.controlGroups[i].removeClass('error');
-	if (this.validateName(this.formFields[0].val()) == false) {
-		this.controlGroups[0].addClass('error'); e.push('Please Enter Your Name');
-	}
-	if (this.validateEmail(this.formFields[1].val()) == false) {
-		this.controlGroups[1].addClass('error'); e.push('Please Enter A Valid Email');
-	}
-	if (this.validateName(this.formFields[2].val()) == false) {
-		this.controlGroups[2].addClass('error');
-		e.push('Please Choose A Username');
-	}
-	if (this.validatePassword(this.formFields[3].val()) == false) {
-		this.controlGroups[3].addClass('error');
-		e.push('Password Should Be At Least 6 Characters');
-	}
-	if (e.length) this.showErrors(e);
-	return e.length === 0;
+    var e = [];
+    for (var i=0; i < this.controlGroups.length; i++) this.controlGroups[i].removeClass('error');
+    if (this.validateName(this.formFields[0].val()) == false) {
+	this.controlGroups[0].addClass('error'); e.push('Please enter your full name');
+    }
+    if (this.validateEmail(this.formFields[1].val()) == false) {
+	this.controlGroups[1].addClass('error'); e.push('Please enter a valid e-mail address');
+    }
+    if (this.validateName(this.formFields[2].val()) == false) {
+	this.controlGroups[2].addClass('error');
+	e.push('Please choose a username');
+    }
+    if (this.validateName(this.formFields[3].val()) == false) {
+	this.controlGroups[3].addClass('error');
+	e.push('Please choose a group name');
+    }
+    if (this.validatePassword(this.formFields[4].val()) == false) {
+	this.controlGroups[4].addClass('error');
+	e.push('Your password should be at least 6 characters long');
+    }
+    if (e.length) this.showErrors(e);
+    return e.length === 0;
 }
 
 	
