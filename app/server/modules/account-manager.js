@@ -53,6 +53,7 @@ exports.manualLogin = function(user, pass, callback)
 
 exports.addNewAccount = function(newData, callback)
 {
+    //console.log(newData);
     accounts.findOne({user:newData.user}, function(e, o) {
 	if (o){
 	    callback('username-taken');
@@ -90,6 +91,15 @@ exports.updateAccount = function(newData, callback)
 	}
     });
 }
+
+exports.updateDances = function(newData, callback)
+{
+    accounts.findOne({user:newData.user}, function(e, o){
+	o.dances        = newData.dances;
+        accounts.save(o, {safe: true}, callback);
+    });
+}
+
 
 exports.updatePassword = function(email, newPass, callback)
 {

@@ -1,6 +1,8 @@
+- user = typeof(udata) != 'undefined' ? udata : { }
+- dances = typeof(ddata) != 'undefined' ? ddata : { }
 input(type='hidden', value= user._id)#userId
 script(type='text/javascript')
-  $(".collapse").collapse();
+  $(".collapse").click(function(){console.log("collapse");});
 
 #account-form-container
   form( method="post")#account-form.form-horizontal.well.span6h1
@@ -12,58 +14,90 @@ script(type='text/javascript')
           #accordion-gOne.accordion-group
             #accordion-hOne.accordion-heading
               a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
-                p lolwut
+               h4 Dance 1: Afternoon Performance
             #collapseOne.accordion-body.collapse.in
               #innerOne.accordion-inner
-                p hello there
+                #dance1-hungariantitle-cg.control-group
+                label.control-label(for='dance1-hungariantitle-tf') Hungarian Title
+                .controls
+                  input#dance1-hungariantitle-tf.input-xlarge(type='text', name='dance1-hungariantitle', value=dances.dance_hungariantitle[0])
+                #dance1-englishtitle-cg.control-group
+                label.control-label(for='dance1-englishtitle-tf') English Title
+                .controls
+                  input#dance1-englishtitle-tf.input-xlarge(type='text', name='dance1-englishtitle', value=dances.dance_englishtitle[0])
+                #dance1-length-cg.control-group
+                label.control-label(for='dance1-length-tf') Length
+                .controls
+                  input#dance1-length-tf.input-small(type='text', name='dance1-length', value=dances.dance_length[0])
+                  span.muted &nbsp;minutes
+                #dance1-choreographer-cg.control-group
+                label.control-label(for='dance1-choreographer-tf') Choreographer
+                .controls
+                  input#dance1-choreographer-tf.input-xlarge(type='text', name='dance1-choreographer', value=dances.dance_choreographer[0])
+                #dance1-instructor-cg.control-group
+                label.control-label(for='dance1-instructor-tf') Instructed by
+                .controls
+                  input#dance1-instructor-cg.input-xlarge(type='text', name='dance1-instructor', value=dances.dance_instructor[0])
+                #dance1-region-cg.control-group
+                label.control-label(for='dance1-region-tf') Region
+                .controls
+                  input#dance1-region-cg.input-xlarge(type='text', name='dance1-region', value='')
+                #dance1-type-cg.control-group
+                label.control-label(for='dance1-type-tf') Type
+                .controls
+                  input#dance1-type-cg.input-xlarge(type='text', name='dance1-type', value='')
+                #dance1-village-cg.control-group
+                label.control-label(for='dance1-village-tf') Village
+                .controls
+                  input#dance1-village-cg.input-xlarge(type='text', name='dance1-village', value='')
+                #dance1-description-cg.control-group
+                label.control-label(for='dance1-description-tf') Description
+                .controls
+                  textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value='')
           #accordion-gTwo.accordion-group
             #accordion-hTwo.accordion-heading
               a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
-                p lolwut
+               h4 Dance 2: Evening Performance
             #collapseTwo.accordion-body.collapse
               #innerTwo.accordion-inner
-                p hello
+                #dance2-hungariantitle-cg.control-group
+                label.control-label(for='dance2-hungariantitle-tf') Hungarian Title
+                .controls
+                  input#dance2-hungariantitle-tf.input-xlarge(type='text', name='dance2-hungariantitle', value='')
+                #dance2-englishtitle-cg.control-group
+                label.control-label(for='dance2-englishtitle-tf') English Title
+                .controls
+                  input#dance2-englishtitle-tf.input-xlarge(type='text', name='dance2-englishtitle', value='')
+                #dance2-length-cg.control-group
+                label.control-label(for='dance2-length-tf') Length
+                .controls
+                  input#dance2-length-tf.input-small(type='text', name='dance2-length', value='')
+                  span.muted &nbsp;minutes
+                #dance2-choreographer-cg.control-group
+                label.control-label(for='dance2-choreographer-tf') Choreographer
+                .controls
+                  input#dance2-choreographer-tf.input-xlarge(type='text', name='dance2-choreographer', value='')
+                #dance2-instructor-cg.control-group
+                label.control-label(for='dance2-instructor-tf') Instructed by
+                .controls
+                  input#dance2-instructor-cg.input-xlarge(type='text', name='dance2-instructor', value='')
+                #dance2-region-cg.control-group
+                label.control-label(for='dance2-region-tf') Region
+                .controls
+                  input#dance2-region-cg.input-xlarge(type='text', name='dance2-region', value='')
+                #dance2-type-cg.control-group
+                label.control-label(for='dance2-type-tf') Type
+                .controls
+                  input#dance2-type-cg.input-xlarge(type='text', name='dance2-type', value='')
+                #dance2-village-cg.control-group
+                label.control-label(for='dance2-village-tf') Village
+                .controls
+                  input#dance2-village-cg.input-xlarge(type='text', name='dance2-village', value='')
+                #dance2-description-cg.control-group
+                label.control-label(for='dance2-description-tf') Description
+                .controls
+                  textarea#dance2-description-cg.input-xlarge(rows=5, name='dance2-description', value='')
 
-        h4 Dance 1: Afternoon Performance
-        br
-        #dance1-hungariantitle-cg.control-group
-          label.control-label(for='dance1-hungariantitle-tf') Hungarian Title
-          .controls
-            input#dance1-hungariantitle-tf.input-xlarge(type='text', name='dance1-hungariantitle', value='')
-        #dance1-englishtitle-cg.control-group
-          label.control-label(for='dance1-englishtitle-tf') English Title
-          .controls
-            input#dance1-englishtitle-tf.input-xlarge(type='text', name='dance1-englishtitle', value='')
-        #dance1-length-cg.control-group
-          label.control-label(for='dance1-length-tf') Length
-          .controls
-            input#dance1-length-tf.input-small(type='text', name='dance1-length', value='')
-            span.muted &nbsp;minutes
-        #dance1-choreographer-cg.control-group
-          label.control-label(for='dance1-choreographer-tf') Choreographer
-          .controls
-            input#dance1-choreographer-tf.input-xlarge(type='text', name='dance1-choreographer', value='')
-        #dance1-instructor-cg.control-group
-          label.control-label(for='dance1-instructor-tf') Instructed by
-          .controls
-            input#dance1-instructor-cg.input-xlarge(type='text', name='dance1-instructor', value='')
-        #dance1-region-cg.control-group
-          label.control-label(for='dance1-region-tf') Region
-          .controls
-            input#dance1-region-cg.input-xlarge(type='text', name='dance1-region', value='')
-        #dance1-type-cg.control-group
-          label.control-label(for='dance1-type-tf') Type
-          .controls
-            input#dance1-type-cg.input-xlarge(type='text', name='dance1-type', value='')
-        #dance1-village-cg.control-group
-          label.control-label(for='dance1-village-tf') Village
-          .controls
-            input#dance1-village-cg.input-xlarge(type='text', name='dance1-village', value='')
-        #dance1-description-cg.control-group
-          label.control-label(for='dance1-description-tf') Description
-          .controls
-            textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value='')
-        hr
 
           button(type='submit')#account-form-btn2.btn.pull-right
 

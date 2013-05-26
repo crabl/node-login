@@ -92,20 +92,36 @@ module.exports = function(app) {
 	}   else{
 	    res.render('dances', {
 		title : 'WCHFF 2013 - Dance Information',
-		udata : req.session.user
+		udata : req.session.user,
+		ddata : req.session.user.dances
 	    });
 	}
     });
     
     app.post('/dances', function(req, res){
 	if (req.param('user') != undefined) {
-	    AM.updateAccount({
+	    AM.updateDances({
 		user: req.param('user'),
-		name: req.param('name'),
-		email: req.param('email'),
-		groupname: req.param('groupname'),
-		country: req.param('country'),
-		pass: req.param('pass')
+		dances: {
+		    'dance_hungariantitle': [req.param('dance1-hungariantitle'), 
+					     req.param('dance2-hungariantitle')],
+		    'dance_englishtitle': [req.param('dance1-englishtitle'),
+					   req.param('dance2-englishtitle')],
+		    'dance_length' : [req.param('dance1-length'),
+				      req.param('dance2-length')],
+		    'dance_choreographer': [req.param('dance1-choreographer'),
+					    req.param('dance2-choreographer')],
+		    'dance_instructor': [req.param('dance1-instructor'),
+					 req.param('dance2-instructor')],
+		    'dance_region': [req.param('dance1-region'),
+                                     req.param('dance2-region')],
+		    'dance_type': [req.param('dance1-type'),
+                                   req.param('dance2-type')],
+		    'dance_village': [req.param('dance1-village'),
+                                      req.param('dance2-village')],
+		    'dance_description': [req.param('dance1-description'),
+					  req.param('dance2-description')]
+		}
 	    }, function(e, o){
 		if (e){
 		    res.send('error-updating-account', 400);
@@ -140,7 +156,18 @@ module.exports = function(app) {
 	    groupname   : req.param('groupname'),
 	    user 	: req.param('user'),
 	    pass	: req.param('pass'),
-	    country : req.param('country')
+	    country : req.param('country'),
+	    dances: {
+                'dance_hungariantitle': ['test title','',''],
+                'dance_englishtitle': ['','',''], 
+                'dance_length': ['','',''],
+                'dance_choreographer': ['','',''],
+                'dance_instructor': ['','',''],
+                'dance_region': ['','',''],
+                'dance_type': ['','',''],
+                'dance_village': ['','',''],
+                'dance_description': ['','','']
+            }
 	}, function(e){
 	    if (e){
 		res.send(e, 400);

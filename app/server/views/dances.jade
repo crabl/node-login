@@ -1,6 +1,10 @@
 
 extends layout
 
+block jquery
+  script(src='/vendor/jquery.min.js')
+  script(src='/vendor/jquery.form.js')
+
 block content
   div.navbar.navbar-fixed-top
     div.navbar-inner
@@ -23,17 +27,14 @@ block content
         button#btn-logout.btn.btn-primary
           i.icon-lock.icon-white
           | Sign Out
-
   include account-dances
   include modals/alert
   include modals/confirm
 
 block scripts
-  script(src='/vendor/jquery.min.js')
-  script(src='/vendor/jquery.form.js')
   script(src='/vendor/bootstrap-modal.js')
   script(src='/vendor/bootstrap-transition.js')
   script(src='/vendor/bootstrap-collapse.js')
-  script(src='/js/views/home.js')
-  script(src='/js/controllers/homeController.js')
-  script(src='/js/form-validators/accountValidator.js')
+  script(src='/js/views/dances.js')
+  script(src='/js/controllers/dancesController.js')
+  script(src='/js/form-validators/dancesValidator.js')

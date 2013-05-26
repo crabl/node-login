@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-	var hc = new HomeController();
+	var hc = new DancesController();
 	var av = new AccountValidator();
 	
 	$('#account-form').ajaxForm({
@@ -34,14 +34,5 @@ $(document).ready(function(){
 	$('#account-form-btn1').html('Delete Account');
 	$('#account-form-btn1').addClass('btn-danger');
 	$('#account-form-btn2').html('Save Changes');
-
-// setup the confirm window that displays when the user chooses to delete their account //
-
-	$('.modal-confirm').modal({ show : false, keyboard : true, backdrop : true });
-	$('.modal-confirm .modal-header h3').text('Delete Account');
-	$('.modal-confirm .modal-body p').html('Are you sure you want to delete your account?');
-	$('.modal-confirm .cancel').html('Cancel');
-	$('.modal-confirm .submit').html('Delete');
-	$('.modal-confirm .submit').addClass('btn-danger');
 
 })
