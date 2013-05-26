@@ -1,36 +1,70 @@
-- user = typeof(udata) != 'undefined' ? udata : { }
-- groupname = typeof(udata) != 'undefined' ? udata : { }
 input(type='hidden', value= user._id)#userId
+script(type='text/javascript')
+  $(".collapse").collapse();
 
 #account-form-container
-    form( method="post")#account-form.form-horizontal.well.span6h1
-      h3 Dance Information
-      p#sub1.subheading NOTE: Please remember that if you are doing more than one dance in a performace, the maximum <strong>combined</strong> time of the two dances must be <strong>no more</strong> than 7 minutes!
+  form( method="post")#account-form.form-horizontal.well.span6h1
+   h3 Dance Information
+      p#sub1.subheading NOTE: Please remember that if you are doing more than one dance in a performace, the maximum <strong>combined</strong> length of the two dances must be <strong>no more</strong> than 7 minutes!
       hr
       fieldset
-        #name-cg.control-group
-          label.control-label(for='name-tf') Your Name
+        #accordion.accordion
+          #accordion-gOne.accordion-group
+            #accordion-hOne.accordion-heading
+              a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
+                p lolwut
+            #collapseOne.accordion-body.collapse.in
+              #innerOne.accordion-inner
+                p hello there
+          #accordion-gTwo.accordion-group
+            #accordion-hTwo.accordion-heading
+              a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
+                p lolwut
+            #collapseTwo.accordion-body.collapse
+              #innerTwo.accordion-inner
+                p hello
+
+        h4 Dance 1: Afternoon Performance
+        br
+        #dance1-hungariantitle-cg.control-group
+          label.control-label(for='dance1-hungariantitle-tf') Hungarian Title
           .controls
-            input#name-tf.input-xlarge(type='text', name='name', value= user.name)
-        #email-cg.control-group
-          label.control-label(for='email-tf') E-mail
+            input#dance1-hungariantitle-tf.input-xlarge(type='text', name='dance1-hungariantitle', value='')
+        #dance1-englishtitle-cg.control-group
+          label.control-label(for='dance1-englishtitle-tf') English Title
           .controls
-            input#email-tf.input-xlarge(type='text', name='email', value= user.email)
-        #groupname-cg.control-group
-          label.control-label(for='groupname-tf') Dance Group Name
+            input#dance1-englishtitle-tf.input-xlarge(type='text', name='dance1-englishtitle', value='')
+        #dance1-length-cg.control-group
+          label.control-label(for='dance1-length-tf') Length
           .controls
-            input#groupname-tf.input-xlarge.disabled(type='text', name='groupname', value=user.groupname)
+            input#dance1-length-tf.input-small(type='text', name='dance1-length', value='')
+            span.muted &nbsp;minutes
+        #dance1-choreographer-cg.control-group
+          label.control-label(for='dance1-choreographer-tf') Choreographer
+          .controls
+            input#dance1-choreographer-tf.input-xlarge(type='text', name='dance1-choreographer', value='')
+        #dance1-instructor-cg.control-group
+          label.control-label(for='dance1-instructor-tf') Instructed by
+          .controls
+            input#dance1-instructor-cg.input-xlarge(type='text', name='dance1-instructor', value='')
+        #dance1-region-cg.control-group
+          label.control-label(for='dance1-region-tf') Region
+          .controls
+            input#dance1-region-cg.input-xlarge(type='text', name='dance1-region', value='')
+        #dance1-type-cg.control-group
+          label.control-label(for='dance1-type-tf') Type
+          .controls
+            input#dance1-type-cg.input-xlarge(type='text', name='dance1-type', value='')
+        #dance1-village-cg.control-group
+          label.control-label(for='dance1-village-tf') Village
+          .controls
+            input#dance1-village-cg.input-xlarge(type='text', name='dance1-village', value='')
+        #dance1-description-cg.control-group
+          label.control-label(for='dance1-description-tf') Description
+          .controls
+            textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value='')
         hr
-        p#sub2.subheading
-        #user-cg.control-group
-          label.control-label(for='user-tf') Username
-          .controls
-            input#user-tf.input-xlarge.disabled(type='text', name='user', value= user.user)
-        #pass-cg.control-group
-          label.control-label(for='pass-tf') Password
-          .controls
-            input#pass-tf.input-xlarge(type='password', name='pass', value='')
-          .form-actions
+
           button(type='submit')#account-form-btn2.btn.pull-right
 
 // display form errors in a custom modal window //
