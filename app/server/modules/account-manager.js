@@ -94,7 +94,6 @@ exports.updateAccount = function(newData, callback)
 
 exports.updateDances = function(newData, callback)
 {
-    console.log("Updating dancers for user "+newData.user);
     accounts.findOne({user:newData.user}, function(e, o){
 	o.dances        = newData.dances;
         accounts.save(o, {safe: true}, callback);

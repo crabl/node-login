@@ -4,7 +4,8 @@ $(document).ready(function(){
     
     $('#account-form').ajaxForm({
 	beforeSubmit : function(formData, jqForm, options){
-	    formData.push({name:'dance_hungariantitle[0]', value:$('#dance1-hungariantitle-tf').val()})
+	    formData.push({name:'dance_description[0]', value:$('textarea#dance1-description').val()})
+	    console.log("Form data being sent:");
 	    console.log(formData);
 	    return true;
 	},
