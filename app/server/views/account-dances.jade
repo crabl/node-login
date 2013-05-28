@@ -41,19 +41,19 @@ script(type='text/javascript')
                 #dance1-region-cg.control-group
                 label.control-label(for='dance1-region-tf') Region
                 .controls
-                  input#dance1-region-cg.input-xlarge(type='text', name='dance1-region', value='')
+                  input#dance1-region-cg.input-xlarge(type='text', name='dance1-region', value=dances.dance_region[0])
                 #dance1-type-cg.control-group
                 label.control-label(for='dance1-type-tf') Type
                 .controls
-                  input#dance1-type-cg.input-xlarge(type='text', name='dance1-type', value='')
+                  input#dance1-type-cg.input-xlarge(type='text', name='dance1-type', value=dances.dance_type[0])
                 #dance1-village-cg.control-group
                 label.control-label(for='dance1-village-tf') Village
                 .controls
-                  input#dance1-village-cg.input-xlarge(type='text', name='dance1-village', value='')
+                  input#dance1-village-cg.input-xlarge(type='text', name='dance1-village', value=dances.dance_village[0])
                 #dance1-description-cg.control-group
                 label.control-label(for='dance1-description-tf') Description
                 .controls
-                  textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value='')
+                  textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value=dances.dance_description[0])
           #accordion-gTwo.accordion-group
             #accordion-hTwo.accordion-heading
               a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')

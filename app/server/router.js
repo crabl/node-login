@@ -137,7 +137,6 @@ module.exports = function(app) {
 		if (e){
 		    res.send('error-updating-account', 400);
 		}	else{
-		    req.session.user = o;
 		    res.send('success', 200);
 		}
 	    });
