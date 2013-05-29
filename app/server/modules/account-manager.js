@@ -21,6 +21,17 @@ var accounts = db.collection('accounts');
 
 /* login validation methods */
 
+exports.getUserObject = function(username, callback) {
+    accounts.findOne({user:username}, function(e, o) {
+	if(o) {
+	    console.log(o);
+	    callback(o);
+	} else {
+	    callback(null);
+	}
+    });
+}
+
 exports.autoLogin = function(user, pass, callback)
 {
     accounts.findOne({user:user}, function(e, o) {

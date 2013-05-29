@@ -3,6 +3,8 @@ var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
 var SS = require('./modules/shirtsize-list');
 
+
+
 module.exports = function(app) {
 
     // debugging sessions //
@@ -56,6 +58,12 @@ module.exports = function(app) {
     // logged-in user homepage //
     
     app.get('/home', function(req, res) {
+	AM.getUserObject(req.session.user.user, function(o) {
+            if(o) {
+                req.session.user = o;
+            }
+        });
+	
 	if (req.session.user == null){
 	    // if user is not logged-in redirect back to login page //
 	    res.redirect('/');
@@ -80,8 +88,7 @@ module.exports = function(app) {
 	    }, function(e, o){
 		if (e){
 		    res.send('error-updating-account', 400);
-		}	else{
-		    req.session.user = o;
+		} else {
 		    // update the user's login cookies if they exists //
 		    if (req.cookies.user != undefined && req.cookies.pass != undefined){
 			res.cookie('user', o.user, { maxAge: 900000 });
@@ -90,7 +97,7 @@ module.exports = function(app) {
 		    res.send('ok', 200);
 		}
 	    });
-	}	else if (req.param('logout') == 'true'){
+	} else if (req.param('logout') == 'true'){
 	    res.clearCookie('user');
 	    res.clearCookie('pass');
 	    req.session.destroy(function(e){ res.send('ok', 200); });
@@ -99,8 +106,12 @@ module.exports = function(app) {
  
     // dance information page //
     app.get('/dances', function(req, res) {
-	console.log("Getting Dances...");
-	console.log(req.session.user.dances);
+	AM.getUserObject(req.session.user.user, function(o) {
+            if(o) {
+                req.session.user = o;
+            }
+        });
+	
 	if (req.session.user == null){
 	    // if user is not logged-in redirect back to login page //
 	    res.redirect('/');
@@ -114,7 +125,6 @@ module.exports = function(app) {
     });
     
     app.post('/dances', function(req, res){
-	console.log("Posting for "+req.session.user.user);
 	if (req.session.user != undefined) {
 	    AM.updateDances({
 		user: req.session.user.user,
@@ -150,40 +160,7 @@ module.exports = function(app) {
 	    }, function(e, o){
 		if (e){
 		    res.send('error-updating-account', 400);
-		}	else{
-		    req.session.user = o;
-		    /* ^---- 
-		       Okay folks, we've come to that point in the program where it's time to ask ourselves:
-		       "Honestly, what the fuck is going on here?"
-		       
-		       Whenever I console.log this shit, it always gives me "1". Dear ExpressJS, I didn't
-		       need the answer to the question "How many JavaScript coders does it take to create
-		       a fucking horrible mess of a framework and call it fucking Express?". No. All I want
-		       to know is why my goddamn session variable isn't working properly. To the writer of
-		       the 'node-login' framework: my deepest sympathies. I heard that you were committed to
-		       an insane asylum shortly after you finished writing your framework. I don't blame you.
-		       If this fucking shitmess of silly string and JS-brogrammer spooge is all I had to work
-		       with on a daily basis, mark my fucking words, I'd be in the foam hockey helmet right
-		       next to you. 
-
-		       How could anyone have thought that this "language", and above all, this bananarammer of
-		       a goddamn "framework" was a good idea? There is no rational, thinking, coherent human
-		       being capable of inflicting such atrocities on the world. WHY DO I DO THIS TO MYSELF?!
-		       Why did I listen to the proclamations of the brogrammers, heralding the arrival of a
-		       "tool" that has made me weep tears of my own blood?! 
-
-		       I tried. I really did try to like this language. I went so far as to almost LOVE it.
-		       But alas, it was not meant to be. Node.js has managed to suck every last drop of life
-		       out of me. It has turned me into a hollow shell of a man who only exists to free
-		       himself of the horrors that were committed against him by this trainwreck of a framework.
-
-		       And so, since nobody else is going to say it, I'm going to say it: I dislike Node.js.
-		       I _PROFOUNDLY_ dislike Express.js. I _EVEN MORE PROFOUNDLY_ dislike Javascript. It is
-		       a nasty, awful, monstrous, disgusting, wretched, evil, moronic, malevolent, vile,
-		       disfigured, whorish, retarded, schizophrenic, cocksucking, ass-munching, dumpster-diving,
-		       rotting carcass of a language. To those more tenacious than I, mazal tov.  To the rest 
-		       (and the sane), run fast, and run fucking far. /rant
-		    */
+		} else {
 		    res.send('success', 200); // Yay, success!
 		}
 	    });
