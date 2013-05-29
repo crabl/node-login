@@ -24,7 +24,6 @@ var accounts = db.collection('accounts');
 exports.getUserObject = function(username, callback) {
     accounts.findOne({user:username}, function(e, o) {
 	if(o) {
-	    console.log(o);
 	    callback(o);
 	} else {
 	    callback(null);

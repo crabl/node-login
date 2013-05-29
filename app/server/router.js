@@ -4,6 +4,19 @@ var EM = require('./modules/email-dispatcher');
 var SS = require('./modules/shirtsize-list');
 
 
+function restrict(req, res, next) {
+    if(req.session.user) {
+	next();
+    } else if (req.param('logout') == 'true'){
+        res.clearCookie('user');
+        res.clearCookie('pass');
+        req.session.destroy(function(e){ res.send('ok', 200); });
+	res.redirect("/");
+    } else {
+	res.redirect("/");
+    }
+}
+
 
 module.exports = function(app) {
 
@@ -57,27 +70,19 @@ module.exports = function(app) {
     
     // logged-in user homepage //
     
-    app.get('/home', function(req, res) {
+    app.get('/home', restrict, function(req, res) {
 	AM.getUserObject(req.session.user.user, function(o) {
-            if(o) {
-                req.session.user = o;
-            }
-        });
-	
-	if (req.session.user == null){
-	    // if user is not logged-in redirect back to login page //
-	    res.redirect('/');
-	}   else{
+	    req.session.user = o;
+
 	    res.render('home', {
 		title : 'WCHFF 2013 - Group Administration',
 		countries : CT,
 		udata : req.session.user
 	    });
-	}
+	});
     });
     
-    app.post('/home', function(req, res){
-	if (req.param('user') != undefined) {
+    app.post('/home', restrict, function(req, res){
 	    AM.updateAccount({
 		user: req.param('user'),
 		name: req.param('name'),
@@ -97,78 +102,60 @@ module.exports = function(app) {
 		    res.send('ok', 200);
 		}
 	    });
-	} else if (req.param('logout') == 'true'){
-	    res.clearCookie('user');
-	    res.clearCookie('pass');
-	    req.session.destroy(function(e){ res.send('ok', 200); });
-	}
     });
  
     // dance information page //
-    app.get('/dances', function(req, res) {
+    app.get('/dances', restrict, function(req, res) {
 	AM.getUserObject(req.session.user.user, function(o) {
-            if(o) {
-                req.session.user = o;
-            }
-        });
-	
-	if (req.session.user == null){
-	    // if user is not logged-in redirect back to login page //
-	    res.redirect('/');
-	}   else{
+	    req.session.user = o;
+
 	    res.render('dances', {
 		title : 'WCHFF 2013 - Dance Information',
 		udata : req.session.user,
 		ddata : req.session.user.dances
 	    });
-	}
+	});
     });
     
-    app.post('/dances', function(req, res){
-	if (req.session.user != undefined) {
-	    AM.updateDances({
-		user: req.session.user.user,
-		dances: {
-		    'dance_hungariantitle': [req.param('dance1-hungariantitle'), 
-					     req.param('dance2-hungariantitle'),
-					     req.param('dance3-hungariantitle')],
-		    'dance_englishtitle': [req.param('dance1-englishtitle'),
-					   req.param('dance2-englishtitle'),
-					   req.param('dance3-englishtitle')],
-		    'dance_length' : [req.param('dance1-length'),
-				      req.param('dance2-length'), 
-				      req.param('dance3-length')],
-		    'dance_choreographer': [req.param('dance1-choreographer'),
-					    req.param('dance2-choreographer'),
-					    req.param('dance3-choreographer')],
-		    'dance_instructor': [req.param('dance1-instructor'),
-					 req.param('dance2-instructor'),
-					 req.param('dance3-instructor')],
-		    'dance_region': [req.param('dance1-region'),
-                                     req.param('dance2-region'),
-				     req.param('dance3-region')],
-		    'dance_type': [req.param('dance1-type'),
-                                   req.param('dance2-type'),
-				   req.param('dance3-type')],
-		    'dance_village': [req.param('dance1-village'),
-                                      req.param('dance2-village'),
-				      req.param('dance3-village')],
-		    'dance_description': [req.param('dance1-description'),
-					  req.param('dance2-description'),
-					  req.param('dance3-description')]
-		}
-	    }, function(e, o){
-		if (e){
-		    res.send('error-updating-account', 400);
-		} else {
-		    res.send('success', 200); // Yay, success!
-		}
-	    });
-	}	else if (req.param('logout') == 'true'){
-	    res.clearCookie('user');
-	    res.clearCookie('pass');
-	    req.session.destroy(function(e){ res.send('ok', 200); });
-	}
+    app.post('/dances', restrict, function(req, res){
+	AM.updateDances({
+	    user: req.session.user.user,
+	    dances: {
+		'dance_hungariantitle': [req.param('dance1-hungariantitle'), 
+					 req.param('dance2-hungariantitle'),
+					 req.param('dance3-hungariantitle')],
+		'dance_englishtitle': [req.param('dance1-englishtitle'),
+				       req.param('dance2-englishtitle'),
+				       req.param('dance3-englishtitle')],
+		'dance_length' : [req.param('dance1-length'),
+				  req.param('dance2-length'), 
+				  req.param('dance3-length')],
+		'dance_choreographer': [req.param('dance1-choreographer'),
+					req.param('dance2-choreographer'),
+					req.param('dance3-choreographer')],
+		'dance_instructor': [req.param('dance1-instructor'),
+				     req.param('dance2-instructor'),
+				     req.param('dance3-instructor')],
+		'dance_region': [req.param('dance1-region'),
+                                 req.param('dance2-region'),
+				 req.param('dance3-region')],
+		'dance_type': [req.param('dance1-type'),
+                               req.param('dance2-type'),
+			       req.param('dance3-type')],
+		'dance_village': [req.param('dance1-village'),
+                                  req.param('dance2-village'),
+				  req.param('dance3-village')],
+		'dance_description': [req.param('dance1-description'),
+				      req.param('dance2-description'),
+				      req.param('dance3-description')]
+	    }
+	}, function(e, o){
+	    if (e){
+		res.send('error-updating-account', 400);
+	    } else {
+		res.send('success', 200); // Yay, success!
+	    }
+	});
     });
  
    
