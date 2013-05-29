@@ -53,7 +53,7 @@ script(type='text/javascript')
                 #dance1-description-cg.control-group
                 label.control-label(for='dance1-description-tf') Description
                 .controls
-                  textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value=dances.dance_description[0])
+                  textarea#dance1-description-cg.input-xlarge(rows=5, name='dance1-description', value=dances.dance_description[0])= dances.dance_description[0]
           #accordion-gTwo.accordion-group
             #accordion-hTwo.accordion-heading
               a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
@@ -96,7 +96,7 @@ script(type='text/javascript')
                 #dance2-description-cg.control-group
                 label.control-label(for='dance2-description-tf') Description
                 .controls
-                  textarea#dance2-description-cg.input-xlarge(rows=5, name='dance2-description', value=dances.dance_description[1])
+                  textarea#dance2-description-cg.input-xlarge(rows=5, name='dance2-description')= dances.dance_description[1]
           #accordion-gThree.accordion-group
             #accordion-hThree.accordion-heading
               a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseThree')
@@ -139,7 +139,7 @@ script(type='text/javascript')
                 #dance3-description-cg.control-group
                 label.control-label(for='dance3-description-tf') Description
                 .controls
-                  textarea#dance3-description-cg.input-xlarge(rows=5, name='dance3-description', value=dances.dance_description[2])
+                  textarea#dance3-description-cg.input-xlarge(rows=5, name='dance3-description')= dances.dance_description[2]
 
 
           button(type='submit')#account-form-btn2.btn.pull-right
