@@ -1,10 +1,21 @@
-
 var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
 var SS = require('./modules/shirtsize-list');
 
 module.exports = function(app) {
+
+    // debugging sessions //
+    app.get('/sessions', function(req, res) {
+	var response = "<h1>Session Information</h1>";
+	response += "<h4>req.session.user</h4><code>";
+	response += JSON.stringify(req.session.user);
+	response += "</code><h4>req.cookies.user</h4><code>";
+	response += req.cookies.user;
+	response += "</code>";
+	res.send(response);
+    });
+
 
     // main login page //
 
@@ -16,6 +27,8 @@ module.exports = function(app) {
 	    // attempt automatic login //
 	    AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
 		if (o != null){
+		    console.log("Autologging in");
+		    console.log(o);
 		    req.session.user = o;
 		    res.redirect('/home');
 		}	else{
@@ -86,7 +99,8 @@ module.exports = function(app) {
  
     // dance information page //
     app.get('/dances', function(req, res) {
-	console.log(req.session.user);
+	console.log("Getting Dances...");
+	console.log(req.session.user.dances);
 	if (req.session.user == null){
 	    // if user is not logged-in redirect back to login page //
 	    res.redirect('/');
