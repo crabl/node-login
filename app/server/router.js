@@ -3,7 +3,6 @@ var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
 var SS = require('./modules/shirtsize-list');
 
-
 function restrict(req, res, next) {
     if(req.session.user) {
 	next();
@@ -16,7 +15,6 @@ function restrict(req, res, next) {
 	res.redirect("/");
     }
 }
-
 
 module.exports = function(app) {
 
@@ -38,7 +36,7 @@ module.exports = function(app) {
 	// check if the user's credentials are saved in a cookie //
 	if (req.cookies.user == undefined || req.cookies.pass == undefined){
 	    res.render('login', { title: 'Hello - Please Login To Your Account' });
-	}	else{
+	} else {
 	    // attempt automatic login //
 	    AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
 		if (o != null){
@@ -69,7 +67,6 @@ module.exports = function(app) {
     });
     
     // logged-in user homepage //
-    
     app.get('/home', restrict, function(req, res) {
 	AM.getUserObject(req.session.user.user, function(o) {
 	    req.session.user = o;
@@ -157,7 +154,6 @@ module.exports = function(app) {
 	    }
 	});
     });
- 
    
     // creating new accounts //
     
