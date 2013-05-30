@@ -42,23 +42,34 @@ script(type='text/javascript')
             label.control-label(for='arrival-plane-numpeople-tf') Number of people
             .controls
               input#arrival-plane-numpeople-tf.input-xlarge(type='text', name='arrival-plane-numpeople', value=transport.arrival.numpeople)
+          #arrival-plane-carrier-cg.control-group
             label.control-label(for='arrival-plane-carrier-tf') Carrier
             .controls
               input#arrival-plane-carrier-tf.input-xlarge(type='text', name='arrival-plane-carrier', value=transport.arrival.carrier)
+          #arrival-plane-flight-cg.control-group
             label.control-label(for='arrival-plane-flight-tf') Flight number
             .controls
               input#arrival-plane-flight-tf.input-xlarge(type='text', name='arrival-plane-flight', value=transport.arrival.flight)
         #arrival-bus
-          p Arrival by bus
+        #arrival-plane-time-cg.control-group
+          label.control-label(for='arrival-eta-hour-sf') Estimated arrival time
+          .controls
+            select.span1(name='arrival-eta-hour-sf')
+              option(selected=transport.arrival.eta_hour == '', value='', disabled) Hour
+              hours = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+              for hour in hours
+                option(selected=transport.arrival.eta_hour == hour, value=hour) #{hour}
+            select.span1(name='arrival-eta-minute-sf')
+              option(selected=transport.arrival.eta_minute == '', value='', disabled) Minute
+              minutes = ['00', '15', '30', '45']
+              for minute in minutes
+                option(selected=transport.arrival.eta_minute == minute, value=minute) #{minute}
+            select.span1(name='arrival-eta-ampm-sf')
+              option(selected=transport.arrival.eta_ampm == '', value='', disabled) AM/PM
+              ampms = ['AM', 'PM']
+              for ampm in ampms
+                option(selected=transport.arrival.eta_ampm == ampm, value=ampm) #{ampm}
 
-        #email-cg.control-group
-          label.control-label(for='email-tf') E-mail
-          .controls
-            input#email-tf.input-xlarge(type='text', name='email', value= user.email)
-        #groupname-cg.control-group
-          label.control-label(for='groupname-tf') Dance Group Name
-          .controls
-            input#groupname-tf.input-xlarge.disabled(type='text', name='groupname', value=user.groupname)
 
         h5 DEPARTURE INFORMATION
         br

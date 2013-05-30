@@ -202,6 +202,7 @@ module.exports = function(app) {
 		    'method' : '',
 		    'numpeople' : '',
 		    'carrier' : '',
+		    'flight' : '',
 		    'eta_hour' : '',
 		    'eta_minute' : '',
 		    'eta_ampm' : '' },
@@ -209,6 +210,7 @@ module.exports = function(app) {
 		    'method' : '',
 		    'numpeople': '',
                     'carrier' :'',
+		    'flight' : '',
                     'eta_hour' : '',
                     'eta_minute' : '',
                     'eta_ampm' : '' }
