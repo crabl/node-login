@@ -24,7 +24,8 @@ script(type='text/javascript')
 #account-form-container
     form( method="post")#account-form.form-horizontal.well.span6h1
       h3 Transportation Information
-      p#sub1.subheading NOTE: Transportation to/from the Lethbridge Airport (YQL) will be assisted.
+      p#sub1.subheading 
+        strong NOTE: Transportation to and from the Lethbridge Airport (YQL) will be assisted.
       hr
       fieldset
         h5 ARRIVAL INFORMATION
@@ -52,7 +53,7 @@ script(type='text/javascript')
               input#arrival-plane-flight-tf.input-xlarge(type='text', name='arrival-plane-flight', value=transport.arrival.flight)
         #arrival-bus
         #arrival-plane-time-cg.control-group
-          label.control-label(for='arrival-eta-hour-sf') Estimated arrival time
+          label.control-label(for='arrival-eta-hour-sf') Arrival time
           .controls
             select.span1(name='arrival-eta-hour-sf')
               option(selected=transport.arrival.eta_hour == '', value='', disabled) Hour
@@ -76,31 +77,51 @@ script(type='text/javascript')
         h5 DEPARTURE INFORMATION
         br
         #departuremethod-cg.control-group
-          label.control-label(for='departuremethod-sf') Departure
+          label.control-label(for='departuremethod-sf') Departure 
           .controls
             select#departuremethod-sf.input-xlarge(onchange='sf_changed("departure")')
               methods = ['by plane', 'by bus or car']
-              option(selected=transport.departuremethod == '', value='', disabled) Please Select...
+              option(selected=transport.departure.method == '', value='', disabled) Please Select...
               for item in methods
-                option(selected=transport.departuremethod == item, value=item) #{item}
+                option(selected=transport.departure.method == item, value=item) #{item}
         #departure-plane
-          p Departure by plane
+          #departure-plane-numpeople-cg.control-group
+            label.control-label(for='departure-plane-numpeople-tf') Number of people
+            .controls
+              input#departure-plane-numpeople-tf.input-xlarge(type='text', name='departure-plane-numpeople', value=transport.departure.numpeople)
+          #departure-plane-carrier-cg.control-group
+            label.control-label(for='departure-plane-carrier-tf') Carrier
+            .controls
+              input#departure-plane-carrier-tf.input-xlarge(type='text', name='departure-plane-carrier', value=transport.departure.carrier)
+          #departure-plane-flight-cg.control-group
+            label.control-label(for='departure-plane-flight-tf') Flight number
+            .controls
+              input#departure-plane-flight-tf.input-xlarge(type='text', name='departure-plane-flight', value=transport.departure.flight)
         #departure-bus
-          p Departure by bus
-
-
-        p#sub2.subheading
-        #user-cg.control-group
-          label.control-label(for='user-tf') Username
+        #departure-plane-time-cg.control-group
+          label.control-label(for='departure-eta-hour-sf') Departure time
           .controls
-            input#user-tf.input-xlarge.disabled(type='text', name='user', value= user.user)
-        #pass-cg.control-group
-          label.control-label(for='pass-tf') Password
-          .controls
-            input#pass-tf.input-xlarge(type='password', name='pass', value='')
-          .form-actions
+            select.span1(name='departure-eta-hour-sf')
+              option(selected=transport.departure.eta_hour == '', value='', disabled) Hour
+              hours = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+              for hour in hours
+                option(selected=transport.departure.eta_hour == hour, value=hour) #{hour}
+            select.span1(name='departure-eta-minute-sf')
+              option(selected=transport.departure.eta_minute == '', value='', disabled) Minute
+              minutes = ['00', '15', '30', '45']
+              for minute in minutes
+                option(selected=transport.departure.eta_minute == minute, value=minute) #{minute}
+            select.span1(name='departure-eta-ampm-sf')
+              option(selected=transport.departure.eta_ampm == '', value='', disabled) AM/PM
+              ampms = ['AM', 'PM']
+              for ampm in ampms
+                option(selected=transport.departure.eta_ampm == ampm, value=ampm) #{ampm}
+          br
+          br
+          p NOTE: Please ensure that all times are provided in terms of Mountain Daylight Time (GMT-6)
 
-          button(type='submit')#account-form-btn2.btn.pull-right
+
+        button(type='submit')#account-form-btn2.btn.pull-right
 
 // display form errors in a custom modal window //
 
