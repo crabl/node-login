@@ -1,0 +1,94 @@
+- user = typeof(udata) != 'undefined' ? udata : { }
+- transport = typeof(tdata) != 'undefined' ? tdata : { }
+input(type='hidden', value= user._id)#userId
+
+script(type='text/javascript')
+  function sf_changed(field) {
+    var mode = $("select#"+field+"method-sf").val();
+    
+    $("#"+field+"-plane").hide();
+    $("#"+field+"-bus").hide();
+
+    if(mode == 'by plane') {
+      $("#"+field+"-plane").show();
+    } else if(mode == 'by bus or car') {
+      $("#"+field+"-bus").show();
+    }
+  }
+  
+  $(document).ready(function() {
+    sf_changed("arrival");
+    sf_changed("departure");
+  });
+
+#account-form-container
+    form( method="post")#account-form.form-horizontal.well.span6h1
+      h3 Transportation Information
+      p#sub1.subheading NOTE: Transportation to/from the Lethbridge Airport (YQL) will be assisted.
+      hr
+      fieldset
+        h5 ARRIVAL INFORMATION
+        br
+        #arrivalmethod-cg.control-group
+          label.control-label(for='arrivalmethod-sf') Arrival 
+          .controls
+            select#arrivalmethod-sf.input-xlarge(onchange='sf_changed("arrival")')
+              methods = ['by plane', 'by bus or car']
+              option(selected=transport.arrival.method == '', value='', disabled) Please Select...
+              for item in methods
+                option(selected=transport.arrival.method == item, value=item) #{item}
+        #arrival-plane
+          #arrival-plane-numpeople-cg.control-group
+            label.control-label(for='arrival-plane-numpeople-tf') Number of people
+            .controls
+              input#arrival-plane-numpeople-tf.input-xlarge(type='text', name='arrival-plane-numpeople', value=transport.arrival.numpeople)
+            label.control-label(for='arrival-plane-carrier-tf') Carrier
+            .controls
+              input#arrival-plane-carrier-tf.input-xlarge(type='text', name='arrival-plane-carrier', value=transport.arrival.carrier)
+            label.control-label(for='arrival-plane-flight-tf') Flight number
+            .controls
+              input#arrival-plane-flight-tf.input-xlarge(type='text', name='arrival-plane-flight', value=transport.arrival.flight)
+        #arrival-bus
+          p Arrival by bus
+
+        #email-cg.control-group
+          label.control-label(for='email-tf') E-mail
+          .controls
+            input#email-tf.input-xlarge(type='text', name='email', value= user.email)
+        #groupname-cg.control-group
+          label.control-label(for='groupname-tf') Dance Group Name
+          .controls
+            input#groupname-tf.input-xlarge.disabled(type='text', name='groupname', value=user.groupname)
+
+        h5 DEPARTURE INFORMATION
+        br
+        #departuremethod-cg.control-group
+          label.control-label(for='departuremethod-sf') Departure
+          .controls
+            select#departuremethod-sf.input-xlarge(onchange='sf_changed("departure")')
+              methods = ['by plane', 'by bus or car']
+              option(selected=transport.departuremethod == '', value='', disabled) Please Select...
+              for item in methods
+                option(selected=transport.departuremethod == item, value=item) #{item}
+        #departure-plane
+          p Departure by plane
+        #departure-bus
+          p Departure by bus
+
+
+        p#sub2.subheading
+        #user-cg.control-group
+          label.control-label(for='user-tf') Username
+          .controls
+            input#user-tf.input-xlarge.disabled(type='text', name='user', value= user.user)
+        #pass-cg.control-group
+          label.control-label(for='pass-tf') Password
+          .controls
+            input#pass-tf.input-xlarge(type='password', name='pass', value='')
+          .form-actions
+
+          button(type='submit')#account-form-btn2.btn.pull-right
+
+// display form errors in a custom modal window //
+
+include modals/form-errors

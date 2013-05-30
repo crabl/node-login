@@ -68,6 +68,7 @@ module.exports = function(app) {
     
     // logged-in user homepage //
     app.get('/home', restrict, function(req, res) {
+	// need to get an updated user object from the database before we render the page
 	AM.getUserObject(req.session.user.user, function(o) {
 	    req.session.user = o;
 
@@ -100,6 +101,21 @@ module.exports = function(app) {
 		}
 	    });
     });
+
+    // transportation information page //
+    app.get('/transport', restrict, function(req, res) {
+        // need to get an updated user object from the database before we render the page                                                      
+        AM.getUserObject(req.session.user.user, function(o) {
+            req.session.user = o;
+
+            res.render('transport', {
+                title : 'WCHFF 2013 - Transportation Information',
+                udata : req.session.user,
+		tdata : req.session.user.transport
+            });
+        });
+    });
+
  
     // dance information page //
     app.get('/dances', restrict, function(req, res) {
@@ -162,6 +178,7 @@ module.exports = function(app) {
     });
     
     app.post('/signup', function(req, res){
+	// create a new account accoring to the model defined below
 	AM.addNewAccount({
 	    name 	: req.param('name'),
 	    email 	: req.param('email'),
@@ -179,7 +196,23 @@ module.exports = function(app) {
                 'dance_type': ['','',''],
                 'dance_village': ['','',''],
                 'dance_description': ['','','']
-            }
+            },
+	    transport : {
+		'arrival' : {
+		    'method' : '',
+		    'numpeople' : '',
+		    'carrier' : '',
+		    'eta_hour' : '',
+		    'eta_minute' : '',
+		    'eta_ampm' : '' },
+		'departure' : {
+		    'method' : '',
+		    'numpeople': '',
+                    'carrier' :'',
+                    'eta_hour' : '',
+                    'eta_minute' : '',
+                    'eta_ampm' : '' }
+	    }
 	}, function(e){
 	    if (e){
 		res.send(e, 400);
