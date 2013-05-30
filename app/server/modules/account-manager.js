@@ -110,6 +110,14 @@ exports.updateDances = function(newData, callback)
     });
 }
 
+exports.updateTransport = function(newData, callback)
+{
+    accounts.findOne({user:newData.user}, function(e, o){
+        o.transport        = newData.transport;
+        accounts.save(o, {safe: true}, callback);
+    });
+}
+
 
 exports.updatePassword = function(email, newPass, callback)
 {

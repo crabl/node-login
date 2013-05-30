@@ -116,6 +116,36 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/transport', restrict, function(req, res) {
+	AM.updateTransport({
+	    user : req.session.user.user,
+	    transport : {
+		arrival : {
+		    'method' : req.param('arrivalmethod-sf'),
+                    'numpeople' : req.param('arrival-plane-numpeople'),
+		    'carrier' : req.param('arrival-plane-carrier'),
+                    'flight' : req.param('arrival-plane-flight'),
+                    'eta_hour' : req.param('arrival-eta-hour'),
+                    'eta_minute' : req.param('arrival-eta-minute'),
+                    'eta_ampm' : req.param('arrival-eta-ampm') },
+		departure : {
+		    'method' : req.param('departuremethod-sf'),
+                    'numpeople' : req.param('departure-plane-numpeople'),
+		    'carrier' : req.param('departure-plane-carrier'),
+                    'flight' : req.param('departure-plane-flight'),
+                    'eta_hour' : req.param('departure-eta-hour'),
+                    'eta_minute' : req.param('departure-eta-mimute'),
+                    'eta_ampm' : req.param('departure-eta-ampm') }
+	    }
+	}, function(e, o) {
+            if (e){
+                res.send('error-updating-account', 400);
+            } else {
+                res.send('success', 200);
+            }
+	});
+    });
+
  
     // dance information page //
     app.get('/dances', restrict, function(req, res) {
@@ -162,7 +192,7 @@ module.exports = function(app) {
 				      req.param('dance2-description'),
 				      req.param('dance3-description')]
 	    }
-	}, function(e, o){
+	}, function(e, o) {
 	    if (e){
 		res.send('error-updating-account', 400);
 	    } else {
