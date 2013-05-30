@@ -4,6 +4,14 @@ $(document).ready(function(){
     
     $('#account-form').ajaxForm({
 	beforeSubmit : function(formData, jqForm, options){
+	    formData.push({
+		name:'arrivalmethod-sf', 
+		value: $('#arrivalmethod-sf').val()
+	    });
+	    formData.push({
+                name:'departuremethod-sf',
+                value: $('#departuremethod-sf').val()
+            });
 	    return true;
 	},
 	success	: function(responseText, status, xhr, $form){
