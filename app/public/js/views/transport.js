@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    var hc = new DancesController();
+    var hc = new TransportController();
     
     $('#account-form').ajaxForm({
 	beforeSubmit : function(formData, jqForm, options){

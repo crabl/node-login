@@ -1,5 +1,5 @@
 
-function DancesController()
+function TransportController()
 {
 
     // bind event listeners to button clicks //
@@ -34,7 +34,7 @@ function DancesController()
     }
 }
 
-DancesController.prototype.onUpdateSuccess = function()
+TransportController.prototype.onUpdateSuccess = function()
 {
     $('.modal-alert').modal({ show : false, keyboard : true, backdrop : true });
     $('.modal-alert .modal-header h3').text('Success!');

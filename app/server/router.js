@@ -6,11 +6,6 @@ var SS = require('./modules/shirtsize-list');
 function restrict(req, res, next) {
     if(req.session.user) {
 	next();
-    } else if (req.param('logout') == 'true'){
-        res.clearCookie('user');
-        res.clearCookie('pass');
-        req.session.destroy(function(e){ res.send('ok', 200); });
-	res.redirect("/");
     } else {
 	res.redirect("/");
     }
@@ -34,17 +29,15 @@ module.exports = function(app) {
 
     app.get('/', function(req, res){
 	// check if the user's credentials are saved in a cookie //
-	if (req.cookies.user == undefined || req.cookies.pass == undefined){
+	if(req.cookies.user == undefined || req.cookies.pass == undefined) {
 	    res.render('login', { title: 'Hello - Please Login To Your Account' });
 	} else {
 	    // attempt automatic login //
-	    AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
-		if (o != null){
-		    console.log("Autologging in");
-		    console.log(o);
+	    AM.autoLogin(req.cookies.user, req.cookies.pass, function(o) {
+		if(o != null) {
 		    req.session.user = o;
 		    res.redirect('/home');
-		}	else{
+		} else {
 		    res.render('login', { title: 'Hello - Please Login To Your Account' });
 		}
 	    });
@@ -52,12 +45,12 @@ module.exports = function(app) {
     });
     
     app.post('/', function(req, res){
-	AM.manualLogin(req.param('user'), req.param('pass'), function(e, o){
-	    if (!o){
+	AM.manualLogin(req.param('user'), req.param('pass'), function(e, o) {
+	    if(!o) {
 		res.send(e, 400);
-	    }	else{
+	    } else {
 		req.session.user = o;
-		if (req.param('remember-me') == 'true'){
+		if(req.param('remember-me') == 'true'){
 		    res.cookie('user', o.user, { maxAge: 900000 });
 		    res.cookie('pass', o.pass, { maxAge: 900000 });
 		}
@@ -71,7 +64,7 @@ module.exports = function(app) {
 	// need to get an updated user object from the database before we render the page
 	AM.getUserObject(req.session.user.user, function(o) {
 	    req.session.user = o;
-
+	    
 	    res.render('home', {
 		title : 'WCHFF 2013 - Group Administration',
 		countries : CT,
@@ -80,26 +73,33 @@ module.exports = function(app) {
 	});
     });
     
-    app.post('/home', restrict, function(req, res){
-	    AM.updateAccount({
-		user: req.param('user'),
-		name: req.param('name'),
-		email: req.param('email'),
-		groupname: req.param('groupname'),
-		country: req.param('country'),
-		pass: req.param('pass')
-	    }, function(e, o){
-		if (e){
-		    res.send('error-updating-account', 400);
-		} else {
-		    // update the user's login cookies if they exists //
-		    if (req.cookies.user != undefined && req.cookies.pass != undefined){
-			res.cookie('user', o.user, { maxAge: 900000 });
-			res.cookie('pass', o.pass, { maxAge: 900000 });	
-		    }
-		    res.send('ok', 200);
+    app.post('/home', restrict, function(req, res) {
+	if(req.param('logout') == 'true') {
+            res.clearCookie('user');
+            res.clearCookie('pass');
+            req.session.destroy(function(e){ res.send('ok', 200); });
+            res.redirect("/");
+	}
+
+	AM.updateAccount({
+	    user: req.param('user'),
+	    name: req.param('name'),
+	    email: req.param('email'),
+	    groupname: req.param('groupname'),
+	    country: req.param('country'),
+	    pass: req.param('pass')
+	}, function(e, o) {
+	    if(e) {
+		res.send('error-updating-account', 400);
+	    } else {
+		// update the user's login cookies if they exists //
+		if (req.cookies.user != undefined && req.cookies.pass != undefined){
+		    res.cookie('user', o.user, { maxAge: 900000 });
+		    res.cookie('pass', o.pass, { maxAge: 900000 });	
 		}
-	    });
+		res.send('ok', 200);
+	    }
+	});
     });
 
     // transportation information page //
@@ -138,7 +138,7 @@ module.exports = function(app) {
                     'eta_ampm' : req.param('departure-eta-ampm') }
 	    }
 	}, function(e, o) {
-            if (e){
+            if(e) {
                 res.send('error-updating-account', 400);
             } else {
                 res.send('success', 200);
@@ -193,7 +193,7 @@ module.exports = function(app) {
 				      req.param('dance3-description')]
 	    }
 	}, function(e, o) {
-	    if (e){
+	    if(e) {
 		res.send('error-updating-account', 400);
 	    } else {
 		res.send('success', 200); // Yay, success!
@@ -201,8 +201,34 @@ module.exports = function(app) {
 	});
     });
    
+    // participants info page //
+    app.get('/participants', restrict, function(req, res) {
+        AM.getUserObject(req.session.user.user, function(o) {
+            req.session.user = o;
+
+            res.render('participants', {
+                title : 'WCHFF 2013 - Group Participants',
+                udata : req.session.user,
+                pdata : req.session.user.participants
+            });
+        });
+    });
+
+    app.post('/participants', restrict, function(req, res) {
+        AM.updateParticipants({
+            user : req.session.user.user,
+            participants : req.session.body // FIX THIS
+        }, function(e, o) {
+            if(e) {
+                res.send('error-updating-account', 400);
+            } else {
+                res.send('success', 200);
+            }
+        });
+    });
+
+
     // creating new accounts //
-    
     app.get('/signup', function(req, res) {
 	res.render('signup', {  title: 'Signup', countries : CT });
     });
@@ -244,18 +270,18 @@ module.exports = function(app) {
                     'eta_hour' : '',
                     'eta_minute' : '',
                     'eta_ampm' : '' }
-	    }
-	}, function(e){
-	    if (e){
+	    },
+	    participants : []
+	}, function(e) {
+	    if(e) {
 		res.send(e, 400);
-	    }	else{
+	    } else {
 		res.send('ok', 200);
 	    }
 	});
     });
 
     // password reset //
-
     app.post('/lost-password', function(req, res){
 	// look up the user's account via their email //
 	AM.getAccountByEmail(req.param('email'), function(o){
@@ -307,7 +333,6 @@ module.exports = function(app) {
     });
     
     // view & delete accounts //
-    
     app.get('/print', function(req, res) {
 	AM.getAllRecords( function(e, accounts){
 	    res.render('print', { title : 'Account List', accts : accounts });
