@@ -8,19 +8,18 @@ var dbHost 		= 'localhost';
 var dbName 		= 'node-login';
 
 /* establish the database connection */
-
 var db = new MongoDB(dbName, new Server(dbHost, dbPort, {auto_reconnect: true}), {w: 1});
-db.open(function(e, d){
+db.open(function(e, d) {
     if (e) {
 	console.log(e);
-    }	else{
+    } else{
 	console.log('connected to database :: ' + dbName);
     }
 });
+
 var accounts = db.collection('accounts');
 
 /* login validation methods */
-
 exports.getUserObject = function(username, callback) {
     accounts.findOne({user:username}, function(e, o) {
 	if(o) {
@@ -31,12 +30,11 @@ exports.getUserObject = function(username, callback) {
     });
 }
 
-exports.autoLogin = function(user, pass, callback)
-{
+exports.autoLogin = function(user, pass, callback) {
     accounts.findOne({user:user}, function(e, o) {
 	if (o){
 	    o.pass == pass ? callback(o) : callback(null);
-	}	else{
+	} else {
 	    callback(null);
 	}
     });
@@ -94,7 +92,7 @@ exports.updateAccount = function(newData, callback)
 	if (newData.pass == ''){
 	    accounts.save(o, {safe: true}, callback);
 	}	else{
-	    saltAndHash(newData.pass, function(hash){
+	    saltAndHash(newData.pass, function(hash) {
 		o.pass = hash;
 		accounts.save(o, {safe: true}, callback);
 	    });
@@ -102,25 +100,31 @@ exports.updateAccount = function(newData, callback)
     });
 }
 
-exports.updateDances = function(newData, callback)
-{
-    accounts.findOne({user:newData.user}, function(e, o){
+exports.updateDances = function(newData, callback) {
+    accounts.findOne({user:newData.user}, function(e, o) {
 	o.dances        = newData.dances;
         accounts.save(o, {safe: true}, callback);
     });
 }
 
-exports.updateTransport = function(newData, callback)
-{
-    accounts.findOne({user:newData.user}, function(e, o){
+exports.updateTransport = function(newData, callback) {
+    accounts.findOne({user:newData.user}, function(e, o) {
         o.transport        = newData.transport;
         accounts.save(o, {safe: true}, callback);
     });
 }
 
+exports.updateTickets = function(newData, callback) {
+    accounts.findOne({user:newData.user}, function(e, o) {
+	o.tickets = newData.tickets;
+	o.festivalpasses = newData.festivalpasses;
+	o.meals = newData.meals;
+	o.tshirts = newData.tshirts;
+	o.festivaldvd = newData.festivaldvd;
+    });
+}
 
-exports.updatePassword = function(email, newPass, callback)
-{
+exports.updatePassword = function(email, newPass, callback) {
     accounts.findOne({email:email}, function(e, o){
 	if (e){
 	    callback(e, null);

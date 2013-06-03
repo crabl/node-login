@@ -217,7 +217,7 @@ module.exports = function(app) {
     app.post('/participants', restrict, function(req, res) {
         AM.updateParticipants({
             user : req.session.user.user,
-            participants : req.session.body // FIX THIS
+            participants : JSON.parse(req.param('participantsarray'))
         }, function(e, o) {
             if(e) {
                 res.send('error-updating-account', 400);
@@ -227,6 +227,23 @@ module.exports = function(app) {
         });
     });
 
+    // ticketing system //
+    app.get('/tickets', restrict, function(req, res) {
+	AM.getUserObject(req.session.user.user, function(o) {
+	    req.session.user = o;
+	    
+	    res.render('tickets', {
+		title : 'WCHFF 2013 - Tickets',
+		udata : req.session.user,
+		tdata : req.session.user.tickets
+	    });
+	});
+    });
+
+    app.post('/tickets', restrict, function(req, res) {
+
+    });
+    
 
     // creating new accounts //
     app.get('/signup', function(req, res) {
@@ -289,7 +306,11 @@ module.exports = function(app) {
 	    festivaldvd : {
 		'musicalperformance' : 0,
 		'sundayafternoon' : 0,
-		'sundayevening' : 0 },
+		'sundayevening' : 0,
+		'address' : '',
+		'city' : '',
+		'postalcode' : '',
+	        'permission' : '' },
 	    tickets : {
 		musicalperformance : {
 		    'adult' : 0,
