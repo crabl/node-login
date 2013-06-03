@@ -1,0 +1,25 @@
+- user = typeof(udata) != 'undefined' ? udata : { }
+- tickets = typeof(tdata) != 'undefined' ? tdata : { }
+input(type='hidden', value= user._id)#userId
+
+#account-form-container
+  form(method="post")#account-form.form-horizontal.well.span6h1
+   h3 Tickets &amp; Passes
+      p#sub1.subheading NOTE: Please remember that if you are doing more than one dance in a performace, the maximum <strong>combined</strong> length of the two dances must be <strong>no more</strong> than 7 minutes!
+      hr
+      fieldset
+        #festivalpasses
+          #dancers-cg.control-group
+          label.control-label(for='dancers-tf') Total Number of WCHFF Dancers
+          .controls
+            input#dancers-tf.input-xlarge(type='text', name='dancers', value=user.participants.length)
+          #administrators-cg.control-group
+          label.control-label(for='administrators-tf') Number of Administrator (max: 2)
+          .controls
+            input#administrator-tf.input-xlarge(type='text', name='administrators', value=user.
+        br
+        button(type='submit')#account-form-btn2.btn.pull-right
+
+// display form errors in a custom modal window //
+
+include modals/form-errors
