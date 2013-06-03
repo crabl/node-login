@@ -209,7 +209,7 @@ module.exports = function(app) {
             res.render('participants', {
                 title : 'WCHFF 2013 - Group Participants',
                 udata : req.session.user,
-                pdata : req.session.user.participants
+                pdata : JSON.stringify(req.session.user.participants)
             });
         });
     });

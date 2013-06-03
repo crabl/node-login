@@ -34,7 +34,7 @@ function ParticipantsController()
     }
 }
 
-DancesController.prototype.onUpdateSuccess = function()
+ParticipantsController.prototype.onUpdateSuccess = function()
 {
     $('.modal-alert').modal({ show : false, keyboard : true, backdrop : true });
     $('.modal-alert .modal-header h3').text('Success!');

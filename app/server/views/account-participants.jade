@@ -1,25 +1,72 @@
 - user = typeof(udata) != 'undefined' ? udata : { }
-- participants = typeof(ddata) != 'undefined' ? pdata : { }
+- participants = typeof(pdata) != 'undefined' ? pdata : { }
 input(type='hidden', value= user._id)#userId
+input(type='hidden', value=participants)#plistCache
+style(type='text/css')
+  #account-form-container { 
+    width: 627px !important; 
+    margin: 100px auto;
+  }
+
+  table { font-size: 10pt; }
+  table tbody { font-weight: normal; }
+
 script(type='text/javascript')
-  $(".collapse").click(function(){console.log("collapse");});
+  var current_participants = JSON.parse($("#plistCache").val());
+  
+  function addField() {
+    var ele = $('.participantField').clone().css('display', 'block').removeClass().appendTo("#current-list");
+    initDatePicker();
+  }
+  
+  function addNewParticipant() {
+    var firstname = $("#firstname-tf");
+    var lastname = $("#lastname-tf");
+    var dob = $("#dob-tf");
+    var gender = $("#gender-sf");
+    var role = $("#role-sf");
+    
+    var person = {
+      firstname: firstname.val(),
+      lastname: lastname.val(),
+      dob: dob.val(),
+      gender: gender.val(),
+      role: role.val()
+    }
+    
+    // Validate whether they are actually a person
+    if(firstname.val() != '' && lastname.val() != '' && dob.val() != '' && gender.val() != '' && role.val() != '') {
+      current_participants.push(person);
+      $("#alert").hide();
+    } else {
+      $("#alert").show();
+    }
+    
+    addField();
+    console.log(person);
+    $("#ptable > tbody:last").append("<tr><td>"+person.firstname+"</td><td>"+person.lastname+"</td><td>"+person.dob+"</td><td>"+person.role+"</td><td></td><td></td></tr>");
+    $("#account-form")[0].reset(); // Clear form fields
+    console.log(current_participants);
+  }
 
 #account-form-container
-  form( method="post")#account-form.form-horizontal.well.span6h1
+  form(method="post")#account-form.form-horizontal.well.span8
    h3 Group Participants
       p#sub1.subheading 
       hr
       fieldset
         #participant
+          #alert.alert.alert-error(style='display:none;')
+            p Error: Please fill in all form fields!
           #name-cg.control-group
             label.control-label(for='firstname-tf') Full Name
             .controls
-              input#firstname-tf.input-xlarge.span2(type='text', name='firstname', placeholder='First Name', value='')
-              input#lastname-tf.input-xlarge.span2(type='text', name='lastname', placeholder='Last Name', value='')
+              input#firstname-tf.input-xlarge.span2(type='text', name='firstname', placeholder='First Name')
+              input#lastname-tf.input-xlarge.span2(type='text', name='lastname', placeholder='Last Name')
            #dob-cg.control-group
              label.control-label(for='dob-tf') Date of Birth
              .controls
-               input#dob-tf.input-xlarge.span2(type='text', name='dob', placeholder='mm/dd/yyyy', value='')
+               input#dob-tf.input-xlarge.span2(type='text', name='dob', placeholder='mm/dd/yyyy')
                select#gender-sf.span2
                  option(disabled selected) Gender
                  option Female
@@ -31,7 +78,39 @@ script(type='text/javascript')
                  option(selected) Dancer
                  option Group Administrator (max: 2)
                  option Chaperone (max: 2)
-
+         #addbtn
+           #add-cg.control-group
+             button.btn(type='button', onclick='addNewParticipant()') Add New Participant               
+        #current-list
+          table#ptable.table.table-bordered
+            thead
+              tr
+                th First Name
+                th Last Name
+                th Birthdate
+                th Role
+                th Shirt Size
+                th Delete
+            tbody
+              tr
+                td Test
+                td Name
+                td 1991/07/30
+                td Dancer
+                td Large
+                td
+                  a(href='#', onclick='delete()')
+                    i.icon-remove
+            for participant in JSON.parse(participants)
+              tr
+                td participant.firstname
+                td participant.lastname
+                td participant.dob
+                td participant.role
+                td participant.shirtsize
+                td 
+                  a(onclick='delete()')
+                    i.icon-remove
         br
         button(type='submit')#account-form-btn2.btn.pull-right
 
