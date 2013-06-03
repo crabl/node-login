@@ -271,7 +271,48 @@ module.exports = function(app) {
                     'eta_minute' : '',
                     'eta_ampm' : '' }
 	    },
-	    participants : []
+	    participants : [],
+	    festivalpasses : {
+		'dancers' : 0,
+		'administrators' : 0,
+		'chaperones' : 0,
+		'musicalperformance' : 0 },
+	    meals : {
+		'lunch' : 0,
+		'supper' : 0 },
+	    tshirts : {
+		'small' : 0,
+		'medium' : 0,
+		'large' : 0,
+		'xlarge' : 0,
+		'doublexlarge' : 0 },
+	    festivaldvd : {
+		'musicalperformance' : 0,
+		'sundayafternoon' : 0,
+		'sundayevening' : 0 },
+	    tickets : {
+		musicalperformance : {
+		    'adult' : 0,
+		    'seniorstudent' : 0,
+		    'child' : 0 },
+		galaperformance : {
+		    afternoon : {
+			'adult': 0,
+			'seniorstudent' : 0,
+			'child' : 0 },
+		    evening : {
+			'adult' : 0,
+			'studentsenior' : 0,
+			'child' : 0 } },
+		packageprice : {
+		    'adult' : 0,
+		    'seniorstudent' : 0,
+		    'child' : 0 },
+		tanchaz : {
+		    'friday' : 0,
+		    'saturday' : 0,
+		    'sunday' : 0 }
+	    }
 	}, function(e) {
 	    if(e) {
 		res.send(e, 400);
