@@ -51,8 +51,8 @@ module.exports = function(app) {
 	    } else {
 		req.session.user = o;
 		if(req.param('remember-me') == 'true'){
-		    res.cookie('user', o.user, { maxAge: 900000 });
-		    res.cookie('pass', o.pass, { maxAge: 900000 });
+		    res.cookie('user', o.user, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+		    res.cookie('pass', o.pass, { maxAge: 365 * 24 * 60 * 60 * 1000 });
 		}
 		res.send(o, 200);
 	    }
@@ -74,13 +74,6 @@ module.exports = function(app) {
     });
     
     app.post('/home', restrict, function(req, res) {
-	if(req.param('logout') == 'true') {
-            res.clearCookie('user');
-            res.clearCookie('pass');
-            req.session.destroy(function(e){ res.send('ok', 200); });
-            res.redirect("/");
-	}
-
 	AM.updateAccount({
 	    user: req.param('user'),
 	    name: req.param('name'),
@@ -94,13 +87,22 @@ module.exports = function(app) {
 	    } else {
 		// update the user's login cookies if they exists //
 		if (req.cookies.user != undefined && req.cookies.pass != undefined){
-		    res.cookie('user', o.user, { maxAge: 900000 });
-		    res.cookie('pass', o.pass, { maxAge: 900000 });	
+		    res.cookie('user', o.user, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+		    res.cookie('pass', o.pass, { maxAge: 365 * 24 * 60 * 60 * 1000 });	
 		}
 		res.send('ok', 200);
 	    }
 	});
     });
+
+    app.post('/logout', restrict, function(req, res) {
+	res.clearCookie('user');
+	res.clearCookie('pass');
+	//res.send('ok', 200);
+	req.session.destroy(function(e){res.send('ok', 200); });
+	res.redirect('/');
+    });
+    
 
     // transportation information page //
     app.get('/transport', restrict, function(req, res) {
@@ -314,12 +316,12 @@ module.exports = function(app) {
 	    tickets : {
 		musicalperformance : {
 		    'adult' : 0,
-		    'seniorstudent' : 0,
+		    'studentsenior' : 0,
 		    'child' : 0 },
 		galaperformance : {
 		    afternoon : {
 			'adult': 0,
-			'seniorstudent' : 0,
+			'studentsenior' : 0,
 			'child' : 0 },
 		    evening : {
 			'adult' : 0,
@@ -327,7 +329,7 @@ module.exports = function(app) {
 			'child' : 0 } },
 		packageprice : {
 		    'adult' : 0,
-		    'seniorstudent' : 0,
+		    'studentsenior' : 0,
 		    'child' : 0 },
 		tanchaz : {
 		    'friday' : 0,
