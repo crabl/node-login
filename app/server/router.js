@@ -243,7 +243,73 @@ module.exports = function(app) {
     });
 
     app.post('/tickets', restrict, function(req, res) {
+	AM.updateTickets({
+	    user: req.session.user.user,
+	    festivalpasses : {
+		'dancers' : req.param('dancers'),
+		'administrators' : req.param('administrators'),
+		'chaperones' : req.param('chaperones'),
+		'musicalperformance' : req.param('musicalperformance') },
+	    meals : {
+		'lunch' : req.param('lunch'),
+		'supper' : req.param('supper') },
+	    tshirts : {
+		'small' : req.param('small'),
+		'medium' : req.param('medium'),
+		'large' : req.param('large'),
+		'xlarge' : req.param('xlarge'),
+		'doublexlarge' : req.param('doublexlarge') },
+	    festivaldvd : {
+		'musicalperformance' : req.param('musicalperformancedvd'),
+		'sundayafternoon' : req.param('sundayafternoondvd'),
+		'sundayevening' : req.param('sundayeveningdvd'),
+		'address' : '',
+		'city' : '',
+		'postalcode' : '',
+		'permission' : '' },
+	    tickets : {
+		musicalperformance : {
+		    'adult' : req.param('musicalperformanceadult'),
+		    'studentsenior' : req.param('musicalperformancestudentsenior'),
+		    'child' : req.param('musicalperformancechild') },
+		galaperformance : {
+		    afternoon : {
+			'adult': req.param('galaafternoonadult'),
+			'studentsenior' : req.param('galaafternoonstudentsenior'),
+			'child' : req.param('galaafternoonchild') },
+		    evening : {
+			'adult' : req.param('galaeveningadult'),
+			'studentsenior' : req.param('galaeveningstudentsenior'),
+			'child' : req.param('galaeveningchild') } },
+		packageprice : {
+		    'adult' : req.param('packagepriceadult'),
+		    'studentsenior' : req.param('packagepricestudentsenior'),
+		    'child' : req.param('packagepricechild') },
+		tanchaz : {
+		    'friday' : req.param('tanchazfriday'),
+		    'saturday' : req.param('tanchazsaturday'),
+		    'sunday' : req.param('tanchazsunday') } }
+	}, function(e, o) {
+	    if(e) {
+                res.send('error-updating-account', 400);
+	    } else {
+                res.send('success', 200);
+	    }
+	});
+    });
 
+    // billing information page //
+    // this page has no corresponding POST request because it's just a summary //
+    app.get('/billing', function(req, res) {
+	AM.getUserObject(req.session.user.user, function(o) {
+            req.session.user = o;
+
+            res.render('billing', {
+                title : 'WCHFF 2013 - Billing Information',
+                udata : req.session.user,
+                tdata : req.session.user.tickets
+            });
+        });
     });
     
 

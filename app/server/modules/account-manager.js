@@ -121,6 +121,7 @@ exports.updateTickets = function(newData, callback) {
 	o.meals = newData.meals;
 	o.tshirts = newData.tshirts;
 	o.festivaldvd = newData.festivaldvd;
+	accounts.save(o, {safe: true}, callback);
     });
 }
 
