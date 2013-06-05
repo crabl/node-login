@@ -22,9 +22,9 @@ script(type='text/javascript')
   function addNewParticipant() {
     var firstname = $("#firstname-tf");
     var lastname = $("#lastname-tf");
-    var dob = $("#dob-tf");
+    var dob = $("#dp0");
     var gender = $("#gender-sf");
-    var role = $("#role-sf");
+    var role = $("#attr-sf");
     
     var person = {
       firstname: firstname.val(),
@@ -35,7 +35,7 @@ script(type='text/javascript')
     }
     
     // Validate whether they are actually a person
-    if(firstname.val() != '' && lastname.val() != '' && dob.val() != '' && gender.val() != '' && role.val() != '') {
+    if(firstname.val() != '' && lastname.val() != '' && dob.val() != '' && gender.val() != 'Gender' && role.val() != '') {
       current_participants.push(person);
       $("#alert").hide();
     } else {
@@ -44,7 +44,7 @@ script(type='text/javascript')
     
     addField();
     console.log(person);
-    $("#ptable > tbody:last").append("<tr><td>"+person.firstname+"</td><td>"+person.lastname+"</td><td>"+person.dob+"</td><td>"+person.role+"</td><td></td><td></td></tr>");
+    $("#ptable > tbody:last").append("<tr><td>"+person.firstname+"</td><td>"+person.lastname+"</td><td>"+person.dob+"</td><td>"+person.role+"</td><td>"+person.gender+"</td><td></td></tr>");
     $("#account-form")[0].reset(); // Clear form fields
     console.log(current_participants);
   }
