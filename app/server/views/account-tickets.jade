@@ -3,15 +3,20 @@
 input(type='hidden', value= user._id)#userId
 
 style(type='text/css').
+  #account-form-container {
+    width: 627px !important;
+    margin: 100px auto;
+  }
+  
   .form-horizontal .control-label { width: 200px; }
   .input-mini { margin: 0 10px; }
   .controls .help-inline { font-weight: normal; font-size: 10pt; }
   .table { font-size: 10pt; }
   .table tbody { font-weight: normal; }
+
 #account-form-container
-  form(method="post")#account-form.form-horizontal.well.span6h1
+  form(method="post")#account-form.form-horizontal.well.span8
    h3 Tickets &amp; Passes
-      p#sub1.subheading NOTE: Please remember that if you are doing more than one dance in a performace, the maximum <strong>combined</strong> length of the two dances must be <strong>no more</strong> than 7 minutes!
       hr
       fieldset
         #festivalpasses

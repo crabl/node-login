@@ -300,14 +300,59 @@ module.exports = function(app) {
 
     // billing information page //
     // this page has no corresponding POST request because it's just a summary //
-    app.get('/billing', function(req, res) {
+    app.get('/billing', restrict, function(req, res) {
 	AM.getUserObject(req.session.user.user, function(o) {
             req.session.user = o;
+
+	    var priceData = {
+		festivalpasses : {
+		    'dancers' : 70,
+		    'administrators' : 85,
+		    'chaperones' : 85,
+		    'musicalperformance' : 0 },
+		meals : {
+		    'lunch' : 0,
+		    'supper' : 0 },
+		tshirts : {
+		    'small' : 0,
+		    'medium' : 0,
+		    'large' : 0,
+		    'xlarge' : 0,
+		    'doublexlarge' : 0 },
+		festivaldvd : {
+		    'musicalperformance' : 25,
+		    'sundayafternoon' : 25,
+		    'sundayevening' : 25 },
+		tickets : {
+		    musicalperformance : {
+			'adult' : 20,
+			'studentsenior' : 17.5,
+			'child' : 10 },
+		    galaperformance : {
+			afternoon : {
+			    'adult': 20,
+			    'studentsenior' : 17.5,
+			    'child' : 10 },
+			evening : {
+			    'adult' : 20,
+			    'studentsenior' : 17.5,
+			    'child' :  10 } },
+		    packageprice : {
+			'adult' : 50,
+			'studentsenior' : 42.5,
+			'child' :  27.5 },
+		    tanchaz : {
+			'friday' : 10,
+			'saturday' : 10,
+			'sunday' :  10}
+		}
+	    }
 
             res.render('billing', {
                 title : 'WCHFF 2013 - Billing Information',
                 udata : req.session.user,
-                tdata : req.session.user.tickets
+                tdata : req.session.user.tickets,
+		pdata : priceData
             });
         });
     });

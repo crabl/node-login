@@ -1,188 +1,38 @@
 - user = typeof(udata) != 'undefined' ? udata : { }
 - tickets = typeof(tdata) != 'undefined' ? tdata : { }
+- prices = typeof(pdata) != 'undefined' ? pdata : { }
+
 input(type='hidden', value= user._id)#userId
 
 style(type='text/css').
+  #account-form-container {
+    width: 627px !important;
+    margin: 100px auto;
+  }
+  
   .form-horizontal .control-label { width: 200px; }
   .input-mini { margin: 0 10px; }
   .controls .help-inline { font-weight: normal; font-size: 10pt; }
   .table { font-size: 10pt; }
   .table tbody { font-weight: normal; }
+
 #account-form-container
   form(method="post")#account-form.form-horizontal.well.span6h1
-   h3 Tickets &amp; Passes
-      p#sub1.subheading NOTE: Please remember that if you are doing more than one dance in a performace, the maximum <strong>combined</strong> length of the two dances must be <strong>no more</strong> than 7 minutes!
-      hr
-      fieldset
-        #festivalpasses
-          h4 FESTIVAL PASSES
-          br
-          #dancers-cg.control-group
-            label.control-label(for='dancers-tf') Total Number of WCHFF Dancers
-            .controls
-              input#dancers-tf.input-mini(type='text', name='dancers', value=user.festivalpasses.dancers)
-              span.help-inline x $70.00
-          #administrators-cg.control-group
-            label.control-label(for='administrators-tf') Number of Administrators (max: 2)
-            .controls
-              input#administrator-tf.input-mini(type='text', name='administrators', value=user.festivalpasses.administrators)
-              span.help-inline x $85.00
-          #chaperones-cg.control-group
-            label.control-label(for='chaperones-tf') Number of Chaperones (max: 2)
-            .controls
-              input#chaperones-tf.input-mini(type='text', name='chaperones', value=user.festivalpasses.chaperones)
-              span.help-inline x $85.00
-          p 
-            | For administrators and chaperones: Festival passes provide access to ONE dance performance, the T&aacute;nch&aacute;z-es
-            | and midnight snack each night, all workshops, festival transportation, and the Saturday evening musical performance.
-            | Dancers will be allowed into dance performances only if seats are available after the show begins.
-        hr
-        #musicalperformance
-          h4 SATURDAY EVENING MUSICAL PERFORMANCE
-          br
-          p Festival passes provide access to this performance, but you must order the complimentary ticket ($0.00)
-          #musicalperformance-cg.control-group
-            label.control-label(for='musicalperformance-tf') At no charge, please provide
-            .controls
-              input#musicalperformance-tf.input-mini(type='text', name='musicalperformance', value=user.participants.length)
-              span.help-inline tickets
-        hr
-        #sundaymeals
-          h4 SUNDAY MEALS
-          br
-          #lunch-cg.control-group
-            label.control-label(for='lunch-tf') Lunch
-            .controls
-              input#lunch-tf.input-mini(type='text', name='lunch', value=user.meals.lunch)
-              span.help-inline x $??.??
-          #supper-cg.control-group
-            label.control-label(for='supper-tf') Supper
-            .controls
-              input#supper-tf.input-mini(type='text', name='supper', value=user.meals.supper)
-              span.help-inline x $??.??
-        hr
-        #tshirts
-          h4 FESTIVAL T-SHIRTS
-          br
-          #small-cg.control-group
-            label.control-label(for='small-tf') Small
-            .controls
-              input#small-tf.input-mini(type='text', name='small', value=user.tshirts.small)
-              span.help-inline $??.??
-          #medium-cg.control-group
-            label.control-label(for='medium-tf') Medium
-            .controls
-              input#medium-tf.input-mini(type='text', name='medium', value=user.tshirts.medium)
-          #large-cg.control-group
-            label.control-label(for='large-tf') Large
-            .controls
-              input#large-tf.input-mini(type='text', name='large', value=user.tshirts.large)
-          #xlarge-cg.control-group
-            label.control-label(for='xlarge-tf') X-Large
-            .controls
-              input#xlarge-tf.input-mini(type='text', name='xlarge', value=user.tshirts.xlarge)
-          #xxlarge-cg.control-group
-            label.control-label(for='xxlarge-tf') 2X-Large
-            .controls
-              input#xxlarge-tf.input-mini(type='text', name='doublexlarge', value=user.tshirts.doublexlarge)
-        hr
-        #festivaldvd
-          h4 FESTIVAL DVD
-          br
-          #musicalperformancedvd-cg.control-group
-            label.control-label(for='musicalperformancedvd-tf') Musical Performance
-            .controls
-              input#musicalperformancedvd-tf.input-mini(type='text', name='musicalperformancedvd', value=user.festivaldvd.musicalperformance)
-              span.help-inline x $25.00
-          #sundayafternoondvd-cg.control-group
-            label.control-label(for='sundayafternoondvd-tf') Sunday Afternoon Performance
-            .controls
-              input#sundayafternoondvd-tf.input-mini(type='text', name='sundayafternoondvd', value=user.festivaldvd.sundayafternoon)
-              span.help-inline x $25.00
-          #sundayeveningdvd-cg.control-group
-            label.control-label(for='sundayeveningdvd-tf') Sunday Evening Performance
-            .controls
-              input#sundayeveningdvd-tf.input-mini(type='text', name='sundayeveningdvd', value=user.festivaldvd.sundayevening)
-              span.help-inline x $25.00
-        hr
-        #guesttickets
-          h4 GUEST TICKETS (FOR SEPARATE PERFORMANCES)
-          br
-          #guesttickets-cg.control-group
-            table.table.table-bordered
-              thead
-                tr
-                  th Event Name
-                  th Adult ($20.00) 
-                  th Student / Senior ($17.50) 
-                  th Child 12 and under ($10.00)
-              tbody
-                tr
-                  td Musical Performance - Saturday Evening (without festival pass)
-                  td 
-                    input#mpadult-tf.input-mini(type='text', name='musicalperformanceadult', value=tickets.musicalperformance.adult)
-                  td 
-                    input#mpstudentsenior-tf.input-mini(type='text', name='musicalperformancestudentsenior', value=tickets.musicalperformance.studentsenior)
-                  td 
-                    input#mpchild-tf.input-mini(type='text', name='musicalperformancechild', value=tickets.musicalperformance.child)
-                tr
-                  td Gala Dance Performance - Sunday Afternoon
-                  td
-                    input#gpaadult-tf.input-mini(type='text', name='galaafternoonadult', value=tickets.galaperformance.afternoon.adult)
-                  td
-                    input#gpastudentsenior-tf.input-mini(type='text', name='galaafternoonstudentsenior', value=tickets.galaperformance.afternoon.studentsenior)
-                  td
-                    input#gpachild-tf.input-mini(type='text', name='galaafternoonchild', value=tickets.galaperformance.afternoon.child)
-                tr
-                  td Gala Dance Performance - Sunday Evening
-                  td
-                    input#gpeadult-tf.input-mini(type='text', name='galaeveningadult', value=tickets.galaperformance.evening.adult)
-                  td
-                    input#gpestudentsenior-tf.input-mini(type='text', name='galaeveningstudentsenior', value=tickets.galaperformance.evening.studentsenior)
-                  td
-                    input#gpechild-tf.input-mini(type='text', name='galaeveningchild', value=tickets.galaperformance.evening.child)
-        hr
-        #guestpackage
-          h4 GUEST TICKETS (PACKAGE PRICE)
-          br
-          p 
-            | You may choose to purchase guest tickets for individual performances or as part of a package.
-            | The package price includes admission to <strong>all three</strong> dance performances.
-          table.table.table-bordered
-            thead
-              tr
-                th Adult ($50.00)
-                th Student / Senior ($42.50)
-                th Child ($27.50)
-            tbody
-              tr
-                td
-                  input#gppadult-tf.input-mini(type='text', name='packagepriceadult', value=tickets.packageprice.adult)
-                td
-                  input#gppstudentsenior-tf.input-mini(type='text', name='packagepricestudentsenior', value=tickets.packageprice.studentsenior)
-                td
-                  input#gppchild-tf.input-mini(type='text', name='packagepricechild', value=tickets.packageprice.child)
-        hr
-        #tanchaz
-          h4 T&Aacute;NCH&Aacute;Z
-          br
-          table.table.table-bordered
-            thead
-              tr
-                th Friday ($10.00)
-                th Saturday ($10.00)
-                th Sunday ($10.00)
-            tbody
-              tr
-                td
-                  input#tanchazfriday.input-mini(type='text', name='tanchazfriday', value=tickets.tanchaz.friday)
-                td
-                  input#tanchazsaturday.input-mini(type='text', name='tanchazsaturday', value=tickets.tanchaz.saturday)
-                td
-                  input#tanchazsunday.input-mini(type='text', name='tanchazsunday', value=tickets.tanchaz.sunday)
-        br
-        button(type='submit')#account-form-btn2.btn.btn-success.pull-right
-
+   h3 Billing Information
+     #billingtable
+       table.table.table-bordered
+         thead
+           th Item
+           th Qty
+           th Unit Price
+           th Subtotal
+         tbody
+           tr
+             td WCHFF Festival Pass - Dancer
+             td 
+             td 
+               prices.festivalpasses.dancer
+             
 // display form errors in a custom modal window //
 
 include modals/form-errors
