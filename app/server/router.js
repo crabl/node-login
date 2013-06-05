@@ -348,12 +348,14 @@ module.exports = function(app) {
 		}
 	    }
 
-            res.render('billing', {
-                title : 'WCHFF 2013 - Billing Information',
-                udata : req.session.user,
-                tdata : req.session.user.tickets,
-		pdata : priceData
-            });
+            res.render('billing', { 
+		locals : {
+		    title : 'WCHFF 2013 - Billing Information',
+                    user : req.session.user,
+                    tickets : req.session.user.tickets,
+		    prices: priceData
+		}
+	    });
         });
     });
     
