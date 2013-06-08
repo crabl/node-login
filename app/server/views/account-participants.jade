@@ -10,13 +10,48 @@ style(type='text/css')
 
   table { font-size: 10pt; }
   table tbody { font-weight: normal; }
+  
+  #addButton { margin-left: 200px; }
 
 script(type='text/javascript')
   var current_participants = JSON.parse($("#plistCache").val());
-  
-  function addField() {
-    var ele = $('.participantField').clone().css('display', 'block').removeClass().appendTo("#current-list");
-    initDatePicker();
+
+  function retabulate() {
+    $("#ptable tbody").html(""); // clear existing table contents
+
+    // renumber everything
+    for(var pid = 0; pid < current_participants.length; pid++) {
+      var person = current_participants[pid];
+      $("#ptable > tbody").append("<tr><td>"+person.firstname+"</td><td>"+person.lastname+"</td><td>"+person.dob+"</td><td>"+person.role+"</td><td>"+person.gender+"</td><td><input type='button' onclick='deleteParticipant("+pid+")' class='btn btn-small btn-danger' value='Delete' /></td></tr>");
+    }
+  }
+
+  function saveFormData() {
+    var pArray = JSON.stringify(current_participants);
+    
+    $.ajax({
+            url: "/participants",
+            type: "POST",
+            data: {participants : pArray},
+            error: function(jqXHR){
+                console.log(jqXHR.responseText+' :: '+jqXHR.statusText);
+            }
+        });
+  }
+
+  function validAge(d) {
+    if(d == '') {
+      return false;
+    }
+
+    var limitdate = new Date("06/06/2010");
+    var birthdate = new Date(d);
+      
+    if(birthdate < limitdate) {
+      return true;
+    }
+      
+    return false;
   }
   
   function addNewParticipant() {
@@ -35,19 +70,43 @@ script(type='text/javascript')
     }
     
     // Validate whether they are actually a person
-    if(firstname.val() != '' && lastname.val() != '' && dob.val() != '' && gender.val() != 'Gender' && role.val() != '') {
+    if(firstname.val() != '' && lastname.val() != '' && validAge(dob.val()) && gender.val() != 'Gender' && role.val() != '') {
+      var pid = current_participants.length;
       current_participants.push(person);
+      
+      // hide alerts
+      $("#alert-dob").hide();
       $("#alert").hide();
+      
+      // Reset form fields
+      firstname.val("");
+      lastname.val("");
+      dob.val("");
+      gender.val("Gender");
+      role.val("");
+      
+      retabulate();        
+      saveFormData(); // post request to save participants
+    } else if(!validAge(dob.val())) {
+      $("#alert-dob").show();
     } else {
       $("#alert").show();
     }
     
-    addField();
-    console.log(person);
-    $("#ptable > tbody:last").append("<tr><td>"+person.firstname+"</td><td>"+person.lastname+"</td><td>"+person.dob+"</td><td>"+person.role+"</td><td>"+person.gender+"</td><td></td></tr>");
-    $("#account-form")[0].reset(); // Clear form fields
     console.log(current_participants);
   }
+
+  function deleteParticipant(index) {
+    if(index < 0 || index >= current_participants.length) {
+      console.log("error");
+    } else {
+      current_participants.splice(index, 1);
+      retabulate();
+      saveFormData(); // post request to participants update
+    }
+  }
+
+  $(document).ready(function() { retabulate(); });
 
 #account-form-container
   form(method="post")#account-form.form-horizontal.well.span8
@@ -58,6 +117,8 @@ script(type='text/javascript')
         #participant
           #alert.alert.alert-error(style='display:none;')
             p Error: Please fill in all form fields!
+          #alert-dob.alert.alert-error(style='display:none;')
+            p Error: Invalid age entered
           #name-cg.control-group
             label.control-label(for='firstname-tf') Full Name
             .controls
@@ -68,9 +129,9 @@ script(type='text/javascript')
              .controls
                input#dob-tf.input-xlarge.span2(type='text', name='dob', placeholder='mm/dd/yyyy')
                select#gender-sf.span2
-                 option(disabled selected) Gender
-                 option Female
-                 option Male
+                 option(disabled selected value='Gender') Gender
+                 option(value='Female') Female
+                 option(value='Male') Male
            #attr-cg.control-group
              label.control-label(for='attr-sf') Role
              .controls
@@ -80,8 +141,7 @@ script(type='text/javascript')
                  option Chaperone (max: 2)
          #addbtn
            #add-cg.control-group
-             button.btn(type='button', onclick='addNewParticipant()') Add New Participant               
-             button(type='submit')#account-form-btn2.btn.btn-success.pull-right
+             button#addButton.btn.btn-success(type='button', onclick='addNewParticipant()') Add New Participant               
         #current-list
           table#ptable.table.table-bordered
             thead
@@ -93,25 +153,7 @@ script(type='text/javascript')
                 th Gender
                 th Delete
             tbody
-              tr
-                td Test
-                td Name
-                td 1991/07/30
-                td Dancer
-                td Male
-                td
-                  a(href='#', onclick='delete()')
-                    i.icon-remove
-            for participant in JSON.parse(participants)
-              tr
-                td participant.firstname
-                td participant.lastname
-                td participant.dob
-                td participant.role
-                td participant.shirtsize
-                td 
-                  a(onclick='delete()')
-                    i.icon-remove
+              
         br
 
 // display form errors in a custom modal window //

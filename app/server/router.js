@@ -219,7 +219,7 @@ module.exports = function(app) {
     app.post('/participants', restrict, function(req, res) {
         AM.updateParticipants({
             user : req.session.user.user,
-            participants : JSON.parse(req.param('participantsarray'))
+            participants : JSON.parse(req.param('participants'))
         }, function(e, o) {
             if(e) {
                 res.send('error-updating-account', 400);

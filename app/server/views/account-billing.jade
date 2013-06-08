@@ -30,7 +30,7 @@ style(type='text/css').
                 th Unit Price
                 th Item Subtotal
             tbody
-              for item in items
+              for item in locals.items
                 th item.n
                 th item.q
                 th $#{item.p}

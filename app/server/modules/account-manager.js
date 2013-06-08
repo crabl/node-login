@@ -125,6 +125,13 @@ exports.updateTickets = function(newData, callback) {
     });
 }
 
+exports.updateParticipants = function(newData, callback) {
+    accounts.findOne({user:newData.user}, function(e, o) {
+	o.participants = newData.participants;
+	accounts.save(o, {safe: true}, callback);
+    });
+}
+
 exports.updatePassword = function(email, newPass, callback) {
     accounts.findOne({email:email}, function(e, o){
 	if (e){
