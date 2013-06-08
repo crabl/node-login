@@ -251,8 +251,7 @@ module.exports = function(app) {
 		'chaperones' : req.param('chaperones'),
 		'musicalperformance' : req.param('musicalperformance') },
 	    meals : {
-		'lunch' : req.param('lunch'),
-		'supper' : req.param('supper') },
+		'package' : req.param('package') },
 	    tshirts : {
 		'small' : req.param('small'),
 		'medium' : req.param('medium'),
@@ -311,8 +310,7 @@ module.exports = function(app) {
 		    'chaperones' : 85,
 		    'musicalperformance' : 0 },
 		meals : {
-		    'lunch' : 0,
-		    'supper' : 0 },
+		    'package' : 30 },
 		tshirts : {
 		    'small' : 0,
 		    'medium' : 0,
@@ -410,8 +408,7 @@ module.exports = function(app) {
 		'chaperones' : 0,
 		'musicalperformance' : 0 },
 	    meals : {
-		'lunch' : 0,
-		'supper' : 0 },
+		'package' : 0 },
 	    tshirts : {
 		'small' : 0,
 		'medium' : 0,

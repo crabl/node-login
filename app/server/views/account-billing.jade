@@ -1,4 +1,12 @@
-input(type='hidden', value= user._id)#userId
+input(type='hidden', value=user._id)#userId
+input(type='hidden', value=JSON.stringify({
+  'festivalpasses': locals.user.festivalpasses,
+  'meals': locals.user.meals,
+  'tshirts': locals.user.tshirts,
+  'festivaldvd': locals.user.festivaldvd,
+  'tickets': locals.user.tickets
+}))#ticketQty
+input(type='hidden', value=JSON.stringify(locals.prices))#priceData
 
 style(type='text/css').
   #account-form-container {
@@ -12,29 +20,70 @@ style(type='text/css').
   .table { font-size: 10pt; }
   .table tbody { font-weight: normal; }
 
+script(type='text/javascript')
+  var tickets = JSON.parse($("#ticketQty").val());
+  var prices = JSON.parse($("#priceData").val());
+  var total = 0;
+  
+  function toPrice(p) {
+    var s = p.toFixed(2).toString();
+    return "$"+s;
+  }
+  
+  function tableRow(sku, property) {
+    var qty = eval("tickets."+property);
+    var price = eval("prices."+property);
+    total += qty * price;
+    
+    var row = "<tr><td>"+sku+"</td><td>"+qty+"</td><td>"+toPrice(price)+"</td><td>"+toPrice(qty*price)+"</td></tr>";
+    return row;
+  }
+
+  $(document).ready(function() {
+    var participant_skus = [{n: "WCHFF 2013 Festival Pass - Dancers", m: "festivalpasses.dancers"},
+      {n: "WCHFF 2013 Festival Pass - Administrators", m: "festivalpasses.administrators"},
+      {n: "WCHFF 2013 Festival Pass - Chaperones", m: "festivalpasses.chaperones"},
+      {n: "Musical Performance - Festival Pass", m: "festivalpasses.musicalperformance"},
+      {n: "Sunday Meal Package - Lunch &amp; Dinner", m: "meals.package"}];
+
+    var guest_skus = [{n: "Musical Performance - Adult", m: "tickets.musicalperformance.adult"},
+      {n: "Musical Performance - Student/Senior", m: "tickets.musicalperformance.studentsenior"},
+      {n: "Musical Performance - Child", m: "tickets.musicalperformance.child"}];
+    
+    for(var i = 0; i < participant_skus.length; i++) {
+      var item = participant_skus[i];
+      $("#participants tbody").append(tableRow(item.n, item.m)); 
+    }
+
+    for(var i = 0; i < guest_skus.length; i++) {
+      var item = guest_skus[i];
+      $("#guests tbody").append(tableRow(item.n, item.m));
+    }
+  });
+
 #account-form-container
   #account-form.form-horizontal.well.span8
     h3 Billing Information
+      br
       #billingtable
-        table.table.table-bordered
+        table#participants.table.table-bordered
           thead
             th Item
             th Qty
             th Unit Price
             th Subtotal
           tbody
-            thead
-              tr
-                th Item
-                th Qty
-                th Unit Price
-                th Item Subtotal
-            tbody
-              for item in locals.items
-                th item.n
-                th item.q
-                th $#{item.p}
-                th $#{item.q * item.p}
+
+        br
+        table#guests.table.table-bordered
+          thead
+            tr
+              th Item
+              th Qty
+              th Unit Price
+              th Item Subtotal
+          tbody
+
 // display form errors in a custom modal window //
 
 include modals/form-errors

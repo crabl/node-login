@@ -45,26 +45,21 @@ style(type='text/css').
         #musicalperformance
           h4 SATURDAY EVENING MUSICAL PERFORMANCE
           br
-          p Festival passes provide access to this performance, but you must order the complimentary ticket ($0.00)
+          p Festival passes provide access to this performance, but you must order the complimentary ticket.
           #musicalperformance-cg.control-group
-            label.control-label(for='musicalperformance-tf') At no charge, please provide
+            label.control-label(for='musicalperformance-tf') Please provide
             .controls
               input#musicalperformance-tf.input-mini(type='text', name='musicalperformance', value=user.participants.length)
-              span.help-inline tickets
+              span.help-inline tickets at <strong>no charge</strong> to our dance group.
         hr
         #sundaymeals
           h4 SUNDAY MEALS
           br
-          #lunch-cg.control-group
-            label.control-label(for='lunch-tf') Lunch
+          #package-cg.control-group
+            label.control-label(for='package-tf') Lunch &amp; Supper Package
             .controls
-              input#lunch-tf.input-mini(type='text', name='lunch', value=user.meals.lunch)
-              span.help-inline x $??.??
-          #supper-cg.control-group
-            label.control-label(for='supper-tf') Supper
-            .controls
-              input#supper-tf.input-mini(type='text', name='supper', value=user.meals.supper)
-              span.help-inline x $??.??
+              input#package-tf.input-mini(type='text', name='package', value=user.meals.package)
+              span.help-inline x $30.00
         hr
         #tshirts
           h4 FESTIVAL T-SHIRTS

@@ -25,7 +25,7 @@ $(document).ready(function(){
 	
 	$('#account-form h1').text('Signup');
 	$('#account-form #sub1').text('Please provide your group information');
-	$('#account-form #sub2').text('Choose a username and password');
+	$('#account-form #sub2').text("Please create a new username and password for your account. This information can be shared among your group's administrators.");
 	$('#account-form-btn1').html('Cancel');
 	$('#account-form-btn2').html('Submit');
 	$('#account-form-btn2').addClass('btn-primary');
