@@ -44,46 +44,105 @@ script(type='text/javascript')
       {n: "WCHFF 2013 Festival Pass - Administrators", m: "festivalpasses.administrators"},
       {n: "WCHFF 2013 Festival Pass - Chaperones", m: "festivalpasses.chaperones"},
       {n: "Musical Performance - Festival Pass", m: "festivalpasses.musicalperformance"},
-      {n: "Sunday Meal Package - Lunch &amp; Dinner", m: "meals.package"}];
+      {n: "Sunday Meal Package - Lunch &amp; Dinner", m: "meals.package"},
+      {n: "Festival DVD - Musical Performance", m: "festivaldvd.musicalperformance"},
+      {n: "Festival DVD - Sunday Afternoon", m: "festivaldvd.sundayafternoon"},
+      {n: "Festival DVD - Sunday Evening", m: "festivaldvd.sundayevening"}];
+
+    var tshirt_skus = []; // REMEMBER TO ADD SHIRTS
 
     var guest_skus = [{n: "Musical Performance - Adult", m: "tickets.musicalperformance.adult"},
       {n: "Musical Performance - Student/Senior", m: "tickets.musicalperformance.studentsenior"},
-      {n: "Musical Performance - Child", m: "tickets.musicalperformance.child"}];
+      {n: "Musical Performance - Child", m: "tickets.musicalperformance.child"},
+      {n: "Gala Performance - Afternoon - Adult", m: "tickets.galaperformance.afternoon.adult"},
+      {n: "Gala Performance - Afternoon - Student/Senior", m: "tickets.galaperformance.afternoon.studentsenior"},
+      {n: "Gala Performance - Afternoon - Child", m: "tickets.galaperformance.afternoon.child"},
+      {n: "Gala Performance - Evening - Adult", m: "tickets.galaperformance.evening.adult"},
+      {n: "Gala Performance - Evening - Student/Senior", m: "tickets.galaperformance.evening.studentsenior"},
+      {n: "Gala Performance - Evening - Child", m: "tickets.galaperformance.evening.child"},
+      {n: "Weekend Package - Adult", m: "tickets.packageprice.adult"},
+      {n: "Weekend Package - Student/Senior", m: "tickets.packageprice.studentsenior"},
+      {n: "Weekend Package - Child", m: "tickets.packageprice.child"},
+      {n: "Tanchaz - Friday", m: "tickets.tanchaz.friday"},
+      {n: "Tanchaz - Saturday", m: "tickets.tanchaz.saturday"},
+      {n: "Tanchaz - Sunday", m: "tickets.tanchaz.sunday"}];
     
+    // Participants Section
     for(var i = 0; i < participant_skus.length; i++) {
       var item = participant_skus[i];
       $("#participants tbody").append(tableRow(item.n, item.m)); 
     }
 
+    var participants_subtotal = total;
+    $("#participants-subtotal").html(toPrice(participants_subtotal));
+
+    // Tshirts Section
+    for(var i = 0; i < tshirt_skus.length; i++) {
+      var item = tshirt_skus[i];
+      $("#tshirts tbody").append(tableRow(item.n, item.m));
+    }
+
+    var tshirts_subtotal = total - participants_subtotal;
+    $("#tshirts-subtotal").html(toPrice(tshirts_subtotal));
+
+    // Guests Section
     for(var i = 0; i < guest_skus.length; i++) {
       var item = guest_skus[i];
       $("#guests tbody").append(tableRow(item.n, item.m));
     }
+    
+    var guests_subtotal = total - participants_subtotal - tshirts_subtotal;
+    $("#guests-subtotal").html(toPrice(guests_subtotal));
+
+    // Grand Total
+    $("#grand-total").html(toPrice(total));
   });
 
 #account-form-container
   #account-form.form-horizontal.well.span8
     h3 Billing Information
+    br
+    
+    #billingtable
+      h3 PARTICIPANTS
+      table#participants.table.table-bordered
+        thead
+          th Item
+          th Qty
+          th Unit Price
+          th Subtotal
+        tbody
+      
+      h4.pull-right Category Subtotal: <span id="participants-subtotal"></span>
+
       br
-      #billingtable
-        table#participants.table.table-bordered
-          thead
+      h3 T-SHIRTS
+      table#tshirts.table.table-bordered
+        thead
+          tr
             th Item
             th Qty
             th Unit Price
-            th Subtotal
-          tbody
+            th Item Subtotal
+        tbody
 
-        br
-        table#guests.table.table-bordered
-          thead
-            tr
-              th Item
-              th Qty
-              th Unit Price
-              th Item Subtotal
-          tbody
+      h4.pull-right Category Subtotal: <span id="tshirts-subtotal"></span>
 
+      br
+      h3 GUEST TICKETING
+      table#guests.table.table-bordered
+        thead
+          tr
+            th Item
+            th Qty
+            th Unit Price
+            th Item Subtotal
+        tbody
+
+      h4.pull-right Category Subtotal: <span id="guests-subtotal"></span>
+
+    hr
+    h3.pull-right Grand Total: <span id="grand-total"></span>
 // display form errors in a custom modal window //
 
 include modals/form-errors
