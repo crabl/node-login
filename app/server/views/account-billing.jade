@@ -49,7 +49,42 @@ script(type='text/javascript')
       {n: "Festival DVD - Sunday Afternoon", m: "festivaldvd.sundayafternoon"},
       {n: "Festival DVD - Sunday Evening", m: "festivaldvd.sundayevening"}];
 
-    var tshirt_skus = []; // REMEMBER TO ADD SHIRTS
+    var tshirt_skus = [{n: "Mens Short XS", m: "tshirts.menshortxs"},
+      {n: "Mens Short S", m: "tshirts.menshorts"},
+      {n: "Mens Short M", m: "tshirts.menshortm"},
+      {n: "Mens Short L", m: "tshirts.menshortl"},
+      {n: "Mens Short XL", m: "tshirts.menshortxl"},
+      {n: "Mens Short XXL", m: "tshirts.menshortxxl"},
+      {n: "Mens Short XXXL", m: "tshirts.menshortxxxl"},
+      {n: "Mens Long XS", m: "tshirts.menlongxs"},
+      {n: "Mens Long S", m: "tshirts.menlongs"},
+      {n: "Mens Long M", m: "tshirts.menlongm"},
+      {n: "Mens Long L", m: "tshirts.menlongl"},
+      {n: "Mens Long XL", m: "tshirts.menlongxl"},
+      {n: "Mens Long XXL", m: "tshirts.menlongxxl"},
+      {n: "Mens Long XXXL", m: "tshirts.menlongxxxl"},
+      {n: "Ladies Short XS", m: "tshirts.ladiesshortxs"},
+      {n: "Ladies Short S", m: "tshirts.ladiesshorts"},
+      {n: "Ladies Short M", m: "tshirts.ladiesshortm"},
+      {n: "Ladies Short L", m: "tshirts.ladiesshortl"},
+      {n: "Ladies Short XL", m: "tshirts.ladiesshortxl"},
+      {n: "Ladies Short XXL", m: "tshirts.ladiesshortxxl"},
+      {n: "Ladies Short XXXL", m: "tshirts.ladiesshortxxxl"},
+      {n: "Ladies Long XS", m: "tshirts.ladieslongxs"},
+      {n: "Ladies Long S", m: "tshirts.ladieslongs"},
+      {n: "Ladies Long M", m: "tshirts.ladieslongm"},
+      {n: "Ladies Long L", m: "tshirts.ladieslongl"},
+      {n: "Ladies Long XL", m: "tshirts.ladieslongxl"},
+      {n: "Ladies Long XXL", m: "tshirts.ladieslongxxl"},
+      {n: "Ladies Long XXXL", m: "tshirts.ladieslongxxxl"},
+      {n: "Youth Short S", m: "tshirts.youthshorts"},
+      {n: "Youth Short M", m: "tshirts.youthshortm"},
+      {n: "Youth Short L", m: "tshirts.youthshortl"},
+      {n: "Youth Short XL", m: "tshirts.youthshortxl"},
+      {n: "Youth Long S", m: "tshirts.youthlongs"},
+      {n: "Youth Long M", m: "tshirts.youthlongm"},
+      {n: "Youth Long L", m: "tshirts.youthlongl"},
+      {n: "Youth Long XL", m: "tshirts.youthlongxl"}]; // REMEMBER TO ADD SHIRTS
 
     var guest_skus = [{n: "Musical Performance - Adult", m: "tickets.musicalperformance.adult"},
       {n: "Musical Performance - Student/Senior", m: "tickets.musicalperformance.studentsenior"},
@@ -70,7 +105,8 @@ script(type='text/javascript')
     // Participants Section
     for(var i = 0; i < participant_skus.length; i++) {
       var item = participant_skus[i];
-      $("#participants tbody").append(tableRow(item.n, item.m)); 
+      if(eval("tickets."+item.m) != 0)
+        $("#participants tbody").append(tableRow(item.n, item.m)); 
     }
 
     var participants_subtotal = total;
@@ -79,7 +115,8 @@ script(type='text/javascript')
     // Tshirts Section
     for(var i = 0; i < tshirt_skus.length; i++) {
       var item = tshirt_skus[i];
-      $("#tshirts tbody").append(tableRow(item.n, item.m));
+      if(eval("tickets."+item.m) != 0)
+        $("#tshirts tbody").append(tableRow(item.n, item.m));
     }
 
     var tshirts_subtotal = total - participants_subtotal;
@@ -88,12 +125,13 @@ script(type='text/javascript')
     // Guests Section
     for(var i = 0; i < guest_skus.length; i++) {
       var item = guest_skus[i];
-      $("#guests tbody").append(tableRow(item.n, item.m));
+      if(eval("tickets."+item.m) != 0)
+        $("#guests tbody").append(tableRow(item.n, item.m));
     }
     
     var guests_subtotal = total - participants_subtotal - tshirts_subtotal;
     $("#guests-subtotal").html(toPrice(guests_subtotal));
-
+ 
     // Grand Total
     $("#grand-total").html(toPrice(total));
   });
@@ -142,6 +180,7 @@ script(type='text/javascript')
       h4.pull-right Category Subtotal: <span id="guests-subtotal"></span>
 
     hr
+    br
     h3.pull-right Grand Total: <span id="grand-total"></span>
 // display form errors in a custom modal window //
 

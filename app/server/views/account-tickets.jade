@@ -64,27 +64,144 @@ style(type='text/css').
         #tshirts
           h4 FESTIVAL T-SHIRTS
           br
-          #small-cg.control-group
-            label.control-label(for='small-tf') Small
-            .controls
-              input#small-tf.input-mini(type='text', name='small', value=user.tshirts.small)
-              span.help-inline $??.??
-          #medium-cg.control-group
-            label.control-label(for='medium-tf') Medium
-            .controls
-              input#medium-tf.input-mini(type='text', name='medium', value=user.tshirts.medium)
-          #large-cg.control-group
-            label.control-label(for='large-tf') Large
-            .controls
-              input#large-tf.input-mini(type='text', name='large', value=user.tshirts.large)
-          #xlarge-cg.control-group
-            label.control-label(for='xlarge-tf') X-Large
-            .controls
-              input#xlarge-tf.input-mini(type='text', name='xlarge', value=user.tshirts.xlarge)
-          #xxlarge-cg.control-group
-            label.control-label(for='xxlarge-tf') 2X-Large
-            .controls
-              input#xxlarge-tf.input-mini(type='text', name='doublexlarge', value=user.tshirts.doublexlarge)
+          p Pro Team shirts are soft, tagless and moisture wicking.  They are available in men, ladies and youth sizing.  You have the option in choosing short sleeve or long sleeve. For a sizing chart, please <a href='http://static.wchff2013.com/sizechart.pdf' target="_blank">click here</a>.
+          h4 Mens Shirts
+          br
+          table.table.table-bordered
+            thead
+              th Size
+              th Mens Short Sleeve ($25.00)
+              th Mens Long Sleeve ($30.00)
+            tbody
+              tr
+                td X-Small
+                td 
+                  input#small-tf.input-mini(type='text', name='menshortxs', value=user.tshirts.menshortxs)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongxs', value=user.tshirts.menlongxs)
+              tr
+                td Small
+                td 
+                  input#small-tf.input-mini(type='text', name='menshorts', value=user.tshirts.menshorts)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongs', value=user.tshirts.menlongs)
+              tr
+                td Medium
+                td 
+                  input#small-tf.input-mini(type='text', name='menshortm', value=user.tshirts.menshortm)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongm', value=user.tshirts.menlongm)
+              tr
+                td Large
+                td 
+                  input#small-tf.input-mini(type='text', name='menshortl', value=user.tshirts.menshortl)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongl', value=user.tshirts.menlongl)
+              tr
+                td X-large
+                td 
+                  input#small-tf.input-mini(type='text', name='menshortxl', value=user.tshirts.menshortxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongxl', value=user.tshirts.menlongxl)
+              tr
+                td XX-large
+                td 
+                  input#small-tf.input-mini(type='text', name='menshortxxl', value=user.tshirts.menshortxxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongxxl', value=user.tshirts.menlongxxl)
+              tr
+                td XXX-L (+$5)
+                td 
+                  input#small-tf.input-mini(type='text', name='menshortxxxl', value=user.tshirts.menshortxxxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='menlongxxxl', value=user.tshirts.menlongxxxl)
+                
+          br
+          h4 Ladies Shirts
+          br
+          table.table.table-bordered
+            thead
+              th Size
+              th Ladies Short Sleeve ($25.00)
+              th Ladies Long Sleeve ($30.00)  
+            tbody
+              tr
+                td X-Small
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshortxs', value=user.tshirts.ladiesshortxs)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongxs', value=user.tshirts.ladieslongxs)
+              tr
+                td Small
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshorts', value=user.tshirts.ladiesshorts)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongs', value=user.tshirts.ladieslongs)
+              tr
+                td Medium
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshortm', value=user.tshirts.ladiesshortm)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongm', value=user.tshirts.ladieslongm)
+              tr
+                td Large
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshortl', value=user.tshirts.ladiesshortl)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongl', value=user.tshirts.ladieslongl)
+              tr
+                td X-large
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshortxl', value=user.tshirts.ladiesshortxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongxl', value=user.tshirts.ladieslongxl)
+              tr
+                td XX-large
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshortxxl', value=user.tshirts.ladiesshortxxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongxxl', value=user.tshirts.ladieslongxxl)
+              tr
+                td XXX-L (+$5)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladiesshortxxxl', value=user.tshirts.ladiesshortxxxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='ladieslongxxxl', value=user.tshirts.ladieslongxxxl)
+          
+          br 
+          h4 Youth Shirts 
+          br
+          table.table.table-bordered
+            thead
+              th Size
+              th Youth Short Sleeve ($20.00)
+              th Youth Long Sleeve ($25.00)
+            tbody
+              tr
+                td Small
+                td 
+                  input#small-tf.input-mini(type='text', name='youthshorts', value=user.tshirts.youthshorts)
+                td 
+                  input#small-tf.input-mini(type='text', name='youthlongs', value=user.tshirts.youthlongs)
+              tr
+                td Medium
+                td 
+                  input#small-tf.input-mini(type='text', name='youthshortm', value=user.tshirts.youthshortm)
+                td 
+                  input#small-tf.input-mini(type='text', name='youthlongm', value=user.tshirts.youthlongm)
+              tr
+                td Large
+                td 
+                  input#small-tf.input-mini(type='text', name='youthshortl', value=user.tshirts.youthshortl)
+                td 
+                  input#small-tf.input-mini(type='text', name='youthlongl', value=user.tshirts.youthlongl)
+              tr
+                td X-large
+                td 
+                  input#small-tf.input-mini(type='text', name='youthshortxl', value=user.tshirts.youthshortxl)
+                td 
+                  input#small-tf.input-mini(type='text', name='youthlongxl', value=user.tshirts.youthlongxl)
+
         hr
         #festivaldvd
           h4 FESTIVAL DVD

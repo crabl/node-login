@@ -119,8 +119,15 @@ script(type='text/javascript')
           br
           br
           p NOTE: Please ensure that all times are provided in terms of Mountain Daylight Time (GMT-6)
-
-
+        h4 REMARKS
+        p 
+          | Please include any additional remarks below regarding your travel plans. For instance, you may indicate if some
+          | group members will be arriving via another transportation method, of if some members need to leave earlier than others.
+        #remarks-cg.control-group
+          label.control-label(for='dance1-description-tf') Additional Remarks
+          .controls
+            textarea#remarks-tf.input-xlarge(rows=5, name='remarks', value=transport.remarks)= transport.remarks
+          
         button(type='submit')#account-form-btn2.btn.btn-success.pull-right
 
 // display form errors in a custom modal window //

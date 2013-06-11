@@ -100,46 +100,60 @@ script(type='text/javascript')
           #accordion-gThree.accordion-group
             #accordion-hThree.accordion-heading
               a.accordion-toggle(data-toggle='collapse', data-parent='#accordion', href='#collapseThree')
-               h4 Dance 3: Other Performance
+               h4 Dance 3: Additional Performance
             #collapseThree.accordion-body.collapse
               #innerThree.accordion-inner
+                p 
+                  | This is an <strong>optional</strong> performance that may be performed either during the afternoon or evening, however, 
+                  | please keep in mind that if you will be doing two dances in one performance, their <strong>combined</strong> length
+                  | must not be more than 7 minutes.
+                #dance3-time-cg.control-group
+                  p Please indicate when you will be performing this dance:
+                  label.control-label(for='dance3-time-tf') Performance Time
+                  .controls
+                    select#dance3-time-sf(name='dance3_time')
+                      option(selected=dances.dance3_time == '', value='', disabled) Time Slot 
+                      times = ['Afternoon', 'Evening']
+                      for time in times
+                        option(selected=dances.dance3_time == time, value=time) #{time}
+                        
                 #dance3-hungariantitle-cg.control-group
-                label.control-label(for='dance3-hungariantitle-tf') Hungarian Title
-                .controls
-                  input#dance3-hungariantitle-tf.input-xlarge(type='text', name='dance3-hungariantitle', value=dances.dance_hungariantitle[2])
+                  label.control-label(for='dance3-hungariantitle-tf') Hungarian Title
+                  .controls
+                    input#dance3-hungariantitle-tf.input-xlarge(type='text', name='dance3-hungariantitle', value=dances.dance_hungariantitle[2])
                 #dance3-englishtitle-cg.control-group
-                label.control-label(for='dance3-englishtitle-tf') English Title
-                .controls
-                  input#dance3-englishtitle-tf.input-xlarge(type='text', name='dance3-englishtitle', value=dances.dance_englishtitle[2])
+                  label.control-label(for='dance3-englishtitle-tf') English Title
+                  .controls
+                    input#dance3-englishtitle-tf.input-xlarge(type='text', name='dance3-englishtitle', value=dances.dance_englishtitle[2])
                 #dance3-length-cg.control-group
-                label.control-label(for='dance3-length-tf') Length
-                .controls
-                  input#dance3-length-tf.input-small(type='text', name='dance3-length', value=dances.dance_length[2])
-                  span.muted &nbsp;minutes
+                  label.control-label(for='dance3-length-tf') Length
+                  .controls
+                    input#dance3-length-tf.input-small(type='text', name='dance3-length', value=dances.dance_length[2])
+                    span.muted &nbsp;minutes
                 #dance3-choreographer-cg.control-group
-                label.control-label(for='dance3-choreographer-tf') Choreographer
-                .controls
-                  input#dance3-choreographer-tf.input-xlarge(type='text', name='dance3-choreographer', value=dances.dance_choreographer[2])
+                  label.control-label(for='dance3-choreographer-tf') Choreographer
+                  .controls
+                    input#dance3-choreographer-tf.input-xlarge(type='text', name='dance3-choreographer', value=dances.dance_choreographer[2])
                 #dance3-instructor-cg.control-group
-                label.control-label(for='dance3-instructor-tf') Instructed by
-                .controls
-                  input#dance3-instructor-cg.input-xlarge(type='text', name='dance3-instructor', value=dances.dance_instructor[2])
+                  label.control-label(for='dance3-instructor-tf') Instructed by
+                  .controls
+                    input#dance3-instructor-cg.input-xlarge(type='text', name='dance3-instructor', value=dances.dance_instructor[2])
                 #dance3-region-cg.control-group
-                label.control-label(for='dance3-region-tf') Region
-                .controls
-                  input#dance3-region-cg.input-xlarge(type='text', name='dance3-region', value=dances.dance_region[2])
+                  label.control-label(for='dance3-region-tf') Region
+                  .controls
+                    input#dance3-region-cg.input-xlarge(type='text', name='dance3-region', value=dances.dance_region[2])
                 #dance3-type-cg.control-group
-                label.control-label(for='dance3-type-tf') Type
-                .controls
-                  input#dance3-type-cg.input-xlarge(type='text', name='dance3-type', value=dances.dance_type[2])
+                  label.control-label(for='dance3-type-tf') Type
+                  .controls
+                    input#dance3-type-cg.input-xlarge(type='text', name='dance3-type', value=dances.dance_type[2])
                 #dance3-village-cg.control-group
-                label.control-label(for='dance3-village-tf') Village
-                .controls
-                  input#dance3-village-cg.input-xlarge(type='text', name='dance3-village', value=dances.dance_village[2])
+                  label.control-label(for='dance3-village-tf') Village
+                  .controls
+                    input#dance3-village-cg.input-xlarge(type='text', name='dance3-village', value=dances.dance_village[2])
                 #dance3-description-cg.control-group
-                label.control-label(for='dance3-description-tf') Description
-                .controls
-                  textarea#dance3-description-cg.input-xlarge(rows=5, name='dance3-description')= dances.dance_description[2]
+                  label.control-label(for='dance3-description-tf') Description
+                  .controls
+                    textarea#dance3-description-cg.input-xlarge(rows=5, name='dance3-description')= dances.dance_description[2]
 
           br
           button(type='submit')#account-form-btn2.btn.btn-success.pull-right
