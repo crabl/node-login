@@ -11,10 +11,18 @@ function restrict(req, res, next) {
     }
 }
 
+function restrictAdmin(req, res, next) {
+    if(req.session.user && req.session.user.admin) {
+	next();
+    } else {
+	res.redirect("/");
+    }
+}
+
 module.exports = function(app) {
 
     // debugging sessions //
-    app.get('/sessions', function(req, res) {
+    app.get('/sessions', restrictAdmin, function(req, res) {
 	var response = "<h1>Session Information</h1>";
 	response += "<h4>req.session.user</h4><code>";
 	response += JSON.stringify(req.session.user);
@@ -330,91 +338,107 @@ module.exports = function(app) {
 	});
     });
 
+    // Price Data for billing and billing-admin pages
+    var priceData = {
+	festivalpasses : {
+	    'dancers' : 70,
+	    'administrators' : 85,
+	    'chaperones' : 85,
+	    'musicalperformance' : 0 },
+	meals : {
+	    'package' : 30 },
+	tshirts : {
+	    'menshortxs' : 25,
+	    'menlongxs' : 30,
+	    'menshorts' : 25,
+            'menlongs' : 30,
+	    'menshortm' : 25,
+            'menlongm' : 30,
+	    'menshortl' : 25,
+            'menlongl' : 30,
+	    'menshortxl' : 25,
+            'menlongxl' : 30,
+	    'menshortxxl' : 25,
+            'menlongxxl' : 30,
+	    'menshortxxxl' : 30,
+            'menlongxxxl' : 35,
+	    'ladiesshortxs' : 25,
+	    'ladieslongxs' : 30,
+	    'ladiesshorts' : 25,
+            'ladieslongs' : 30,
+	    'ladiesshortm' : 25,
+            'ladieslongm' : 30,
+	    'ladiesshortl' : 25,
+            'ladieslongl' : 30,
+	    'ladiesshortxl' : 25,
+            'ladieslongxl' : 30,
+	    'ladiesshortxxl' : 25,
+            'ladieslongxxl' : 30,
+	    'ladiesshortxxxl' : 30,
+            'ladieslongxxxl' : 35,
+	    'youthshorts' : 20,
+            'youthlongs' : 25,
+	    'youthshortm' : 20,
+            'youthlongm' : 25,
+	    'youthshortl' : 20,
+            'youthlongl' : 25,
+	    'youthshortxl' : 20,
+            'youthlongxl' : 25 } ,
+	festivaldvd : {
+	    'musicalperformance' : 25,
+	    'sundayafternoon' : 25,
+	    'sundayevening' : 25 },
+	tickets : {
+	    musicalperformance : {
+		'adult' : 20,
+		'studentsenior' : 17.5,
+		'child' : 10 },
+	    galaperformance : {
+		afternoon : {
+		    'adult': 20,
+		    'studentsenior' : 17.5,
+		    'child' : 10 },
+		evening : {
+		    'adult' : 20,
+		    'studentsenior' : 17.5,
+		    'child' :  10 } },
+	    packageprice : {
+		'adult' : 50,
+		'studentsenior' : 42.5,
+		'child' :  27.5 },
+	    tanchaz : {
+		'friday' : 10,
+		'saturday' : 10,
+		'sunday' :  10}
+	}
+    }
+
+    app.get('/billingAdmin', restrictAdmin, function(req, res) {
+	AM.getUserObject(req.param('user'), function(o) {
+            var billingUser = o;
+
+	    res.render('billing-admin', { 
+		locals : {
+		    title : 'WCHFF 2013 - Admin Billing Information',
+		    user : billingUser,
+		    tickets : billingUser.tickets,
+		    prices: priceData
+		}
+	    });
+        });	
+    });
+
     // billing information page //
     // this page has no corresponding POST request because it's just a summary //
     app.get('/billing', restrict, function(req, res) {
 	AM.getUserObject(req.session.user.user, function(o) {
             req.session.user = o;
 
-	    var priceData = {
-		festivalpasses : {
-		    'dancers' : 70,
-		    'administrators' : 85,
-		    'chaperones' : 85,
-		    'musicalperformance' : 0 },
-		meals : {
-		    'package' : 30 },
-		tshirts : {
-		    'menshortxs' : 25,
-		    'menlongxs' : 30,
-		    'menshorts' : 25,
-                    'menlongs' : 30,
-		    'menshortm' : 25,
-                    'menlongm' : 30,
-		    'menshortl' : 25,
-                    'menlongl' : 30,
-		    'menshortxl' : 25,
-                    'menlongxl' : 30,
-		    'menshortxxl' : 25,
-                    'menlongxxl' : 30,
-		    'menshortxxxl' : 30,
-                    'menlongxxxl' : 35,
-		    'ladiesshortxs' : 25,
-		    'ladieslongxs' : 30,
-		    'ladiesshorts' : 25,
-                    'ladieslongs' : 30,
-		    'ladiesshortm' : 25,
-                    'ladieslongm' : 30,
-		    'ladiesshortl' : 25,
-                    'ladieslongl' : 30,
-		    'ladiesshortxl' : 25,
-                    'ladieslongxl' : 30,
-		    'ladiesshortxxl' : 25,
-                    'ladieslongxxl' : 30,
-		    'ladiesshortxxxl' : 30,
-                    'ladieslongxxxl' : 35,
-		    'youthshorts' : 20,
-                    'youthlongs' : 25,
-		    'youthshortm' : 20,
-                    'youthlongm' : 25,
-		    'youthshortl' : 20,
-                    'youthlongl' : 25,
-		    'youthshortxl' : 20,
-                    'youthlongxl' : 25 } ,
-		festivaldvd : {
-		    'musicalperformance' : 25,
-		    'sundayafternoon' : 25,
-		    'sundayevening' : 25 },
-		tickets : {
-		    musicalperformance : {
-			'adult' : 20,
-			'studentsenior' : 17.5,
-			'child' : 10 },
-		    galaperformance : {
-			afternoon : {
-			    'adult': 20,
-			    'studentsenior' : 17.5,
-			    'child' : 10 },
-			evening : {
-			    'adult' : 20,
-			    'studentsenior' : 17.5,
-			    'child' :  10 } },
-		    packageprice : {
-			'adult' : 50,
-			'studentsenior' : 42.5,
-			'child' :  27.5 },
-		    tanchaz : {
-			'friday' : 10,
-			'saturday' : 10,
-			'sunday' :  10}
-		}
-	    }
-
-            res.render('billing', { 
+	    res.render('billing', { 
 		locals : {
 		    title : 'WCHFF 2013 - Billing Information',
-                    user : req.session.user,
-                    tickets : req.session.user.tickets,
+		    user : req.session.user,
+		    tickets : req.session.user.tickets,
 		    prices: priceData
 		}
 	    });
@@ -431,6 +455,7 @@ module.exports = function(app) {
 	// create a new account accoring to the model defined below
 	AM.addNewAccount({
 	    name 	: req.param('name'),
+	    admin       : false,
 	    email 	: req.param('email'),
 	    groupname   : req.param('groupname'),
 	    user 	: req.param('user'),
@@ -604,13 +629,13 @@ module.exports = function(app) {
     });
     
     // view & delete accounts //
-    app.get('/print', function(req, res) {
+    app.get('/print', restrictAdmin, function(req, res) {
 	AM.getAllRecords( function(e, accounts){
 	    res.render('print', { title : 'Account List', accts : accounts });
 	})
     });
     
-    app.post('/delete', function(req, res){
+    app.post('/delete', restrict, function(req, res){
 	AM.deleteAccount(req.body.id, function(e, obj){
 	    if (!e){
 		res.clearCookie('user');
@@ -622,7 +647,7 @@ module.exports = function(app) {
 	});
     });
     
-    app.get('/reset', function(req, res) {
+    app.get('/reset', restrictAdmin, function(req, res) {
 	AM.delAllRecords(function(){
 	    res.redirect('/print');	
 	});
