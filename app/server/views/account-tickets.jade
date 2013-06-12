@@ -19,6 +19,22 @@ style(type='text/css').
    h3 Tickets &amp; Passes
       hr
       fieldset
+        #address
+          h4 BILLING ADDRESS
+          br
+          #address-cg.control-group
+            label.control-label(for='address-tf') Address
+            .controls
+              input#address-tf.input-xlarge(type='text', name='address', value=user.festivaldvd.address);
+          #city-cg.control-group
+            label.control-label(for='city-tf') City, Province
+            .controls
+              input#city-tf.input-xlarge(type='text', name='city', value=user.festivaldvd.city);
+          #postalcode-cg.control-group
+            label.control-label(for='postalcode-tf') Postal Code
+            .controls
+              input#postalcode-tf.input-xlarge(type='text', name='postalcode', value=user.festivaldvd.postalcode);
+        hr
         #festivalpasses
           h4 FESTIVAL PASSES
           br

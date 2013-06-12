@@ -303,9 +303,9 @@ module.exports = function(app) {
 		'musicalperformance' : req.param('musicalperformancedvd'),
 		'sundayafternoon' : req.param('sundayafternoondvd'),
 		'sundayevening' : req.param('sundayeveningdvd'),
-		'address' : '',
-		'city' : '',
-		'postalcode' : '',
+		'address' : req.param('address'),
+		'city' : req.param('city'),
+		'postalcode' : req.param('postalcode'),
 		'permission' : '' },
 	    tickets : {
 		musicalperformance : {

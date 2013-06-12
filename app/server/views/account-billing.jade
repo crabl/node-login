@@ -19,6 +19,7 @@ style(type='text/css').
   .controls .help-inline { font-weight: normal; font-size: 10pt; }
   .table { font-size: 10pt; }
   .table tbody { font-weight: normal; }
+  .big { font-size: 14pt; line-height: 16pt; }
 
 script(type='text/javascript')
   var tickets = JSON.parse($("#ticketQty").val());
@@ -139,6 +140,12 @@ script(type='text/javascript')
 #account-form-container
   #account-form.form-horizontal.well.span8
     h3 Billing Information
+    p
+      | Bill to: #{locals.user.groupname} <br />
+      | c/o #{locals.user.name} <br />
+      | #{locals.user.festivaldvd.address} <br />
+      | #{locals.user.festivaldvd.city} <br />
+      | #{locals.user.festivaldvd.postalcode} <br />
     br
     
     #billingtable
@@ -182,6 +189,24 @@ script(type='text/javascript')
     hr
     br
     h3.pull-right Grand Total: <span id="grand-total"></span>
+
+    hr
+    br
+    p.big 
+      | <strong>Please make cheques payable to:</strong><br />
+      | HUNGARIAN CULTURAL SOCIETY - FOLK FESTIVAL
+    p.big
+      | <strong>Please mail payment to:</strong><br />
+      | Carole Gemer <br />
+      | c/o 829 15 Street South <br />
+      | Lethbridge, AB&nbsp;&nbsp;&nbsp;T1J 3A3 <br />
+    p.big
+      strong DEADLINE FOR ALL INFORMATION, PHOTOS, AND PAYMENT IS AUGUST 27, 2013.
+    p.big
+      strong Hotel bookings must be completed by August 27th to guarantee special room rates.
+    p.big
+      strong WE CANNOT PROCESS ANY ORDERS FOR T-SHIRTS OR TICKETS UNTIL PAYMENT IS RECEIVED!
+    
 // display form errors in a custom modal window //
 
 include modals/form-errors
