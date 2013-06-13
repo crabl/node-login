@@ -261,7 +261,8 @@ module.exports = function(app) {
 		'chaperones' : req.param('chaperones'),
 		'musicalperformance' : req.param('musicalperformance') },
 	    meals : {
-		'package' : req.param('package') },
+		'package' : req.param('package'),
+	        'packagechild': req.param('packagechild') },
 	    tshirts : { // HOLY FUCK. TAKE ME NOW, OH SWEET ANGEL OF DEATH.
 		'menshortxs' : req.param('menshortxs'),
 		'menlongxs' : req.param('menlongxs'),
@@ -346,7 +347,8 @@ module.exports = function(app) {
 	    'chaperones' : 85,
 	    'musicalperformance' : 0 },
 	meals : {
-	    'package' : 30 },
+	    'package' : 30,
+	    'packagechild' : 15 },
 	tshirts : {
 	    'menshortxs' : 25,
 	    'menlongxs' : 30,
@@ -499,7 +501,8 @@ module.exports = function(app) {
 		'chaperones' : 0,
 		'musicalperformance' : 0 },
 	    meals : {
-		'package' : 0 },
+		'package' : 0,
+		'packagechild' : 0 },
 	    tshirts : {
 		'menshortxs' : 0,
 		'menlongxs' : 0,

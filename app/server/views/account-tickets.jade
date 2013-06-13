@@ -77,6 +77,12 @@ style(type='text/css').
             .controls
               input#package-tf.input-mini(type='text', name='package', value=user.meals.package)
               span.help-inline x $30.00
+          #package-child-cg.control-group
+            label.control-label(for='package-child-tf') Children's Meal Package
+            .controls
+              input#package-child-tf.input-mini(type='text', name='packagechild', value=user.meals.packagechild)
+              span.help-inline x $15.00
+        
         hr
         #tshirts
           h4 FESTIVAL T-SHIRTS
