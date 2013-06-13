@@ -136,17 +136,17 @@ module.exports = function(app) {
                     'numpeople' : req.param('arrival-plane-numpeople'),
 		    'carrier' : req.param('arrival-plane-carrier'),
                     'flight' : req.param('arrival-plane-flight'),
-                    'eta_hour' : req.param('arrival-eta-hour'),
-                    'eta_minute' : req.param('arrival-eta-minute'),
-                    'eta_ampm' : req.param('arrival-eta-ampm') },
+                    'eta_hour' : req.param('arrival-eta-hour-sf'),
+                    'eta_minute' : req.param('arrival-eta-minute-sf'),
+                    'eta_ampm' : req.param('arrival-eta-ampm-sf') },
 		departure : {
 		    'method' : req.param('departuremethod-sf'),
                     'numpeople' : req.param('departure-plane-numpeople'),
 		    'carrier' : req.param('departure-plane-carrier'),
                     'flight' : req.param('departure-plane-flight'),
-                    'eta_hour' : req.param('departure-eta-hour'),
-                    'eta_minute' : req.param('departure-eta-mimute'),
-                    'eta_ampm' : req.param('departure-eta-ampm') }
+                    'eta_hour' : req.param('departure-eta-hour-sf'),
+                    'eta_minute' : req.param('departure-eta-minute-sf'),
+                    'eta_ampm' : req.param('departure-eta-ampm-sf') }
 	    }
 	}, function(e, o) {
             if(e) {
