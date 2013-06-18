@@ -13,7 +13,8 @@ function AccountValidator(){
 	
 	this.validateName = function(s)
 	{
-		return s.length >= 3;
+	    var re = /^[a-z0-9_-]{3,16}$/;
+	    return re.test(s);
 	}
 	
 	this.validatePassword = function(s)
@@ -67,11 +68,11 @@ AccountValidator.prototype.validateForm = function()
     }
     if (this.validateName(this.formFields[2].val()) == false) {
 	this.controlGroups[2].addClass('error');
-	e.push('Please choose a username');
+	e.push('Please enter a valid group name');
     }
     if (this.validateName(this.formFields[3].val()) == false) {
 	this.controlGroups[3].addClass('error');
-	e.push('Please choose a group name');
+	e.push('Usernames must be 3-16 characters long, and must only contain letters a-z, numbers and underscores');
     }
     if (this.validatePassword(this.formFields[4].val()) == false) {
 	this.controlGroups[4].addClass('error');

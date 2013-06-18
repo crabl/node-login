@@ -263,7 +263,7 @@ module.exports = function(app) {
 	    meals : {
 		'package' : req.param('package'),
 	        'packagechild': req.param('packagechild') },
-	    tshirts : { // HOLY FUCK. TAKE ME NOW, OH SWEET ANGEL OF DEATH.
+	    tshirts : { 
 		'menshortxs' : req.param('menshortxs'),
 		'menlongxs' : req.param('menlongxs'),
 		'menshorts' : req.param('menshorts'),
