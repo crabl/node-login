@@ -28,7 +28,8 @@ $(document).ready(function(){
 	$('#name-tf').focus();
 
 // customize the account settings form //
-	
+    $('#tutorial-alert').fadeIn("slow");
+    $('#pointer-arrow').fadeIn("slow");
 	$('#account-form h1').text('Account Settings');
 	$('#user-tf').attr('disabled', 'disabled');
 	$('#account-form-btn1').html('Delete Account');

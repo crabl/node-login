@@ -2,7 +2,20 @@
 - groupname = typeof(udata) != 'undefined' ? udata : { }
 input(type='hidden', value= user._id)#userId
 
+style(type='text/css')
+  #pointer-arrow {
+    position: relative;
+    left: -130px;
+    top: 90px;
+    margin-top: -120px;
+    display: none;
+  }
+
 #account-form-container
+    #pointer-arrow
+      img(src='http://static.wchff2013.com/dumbass-arrow.png')
+    #tutorial-alert.alert(style='display:none; width: 390px;')
+      span Welcome back,  #{user.name}! You can now use the links at the top of the page to complete your registration!
     form( method="post")#account-form.form-horizontal.well.span6h1
       h3 Group Administration
       p#sub1.subheading Please enter the primary contact information for your group:
