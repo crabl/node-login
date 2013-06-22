@@ -5,10 +5,10 @@ module.exports = EM;
 
 EM.server = require("emailjs/email").server.connect({
 
-	host 	    : ES.host,
-	user 	    : ES.user,
-	password    : ES.password,
-	ssl		    : true
+    host: ES.host,
+    user: ES.user,
+    password: ES.password,
+    ssl: false
 
 });
 
