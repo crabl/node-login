@@ -15,7 +15,6 @@ app.configure(function(){
 	app.set('view engine', 'jade');
 	app.locals.pretty = true;
 //	app.use(express.favicon());
-	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
 	app.use(express.session({ secret: 'wVrw>&WRjbPH|Z9CZtL?m;]*jL>>7-c.Y.xcshMitYZ};g%keX%4rQ2f-z:7a9+6' }));
@@ -24,9 +23,6 @@ app.configure(function(){
 	app.use(express.static(__dirname + '/app/public'));
 });
 
-app.configure('development', function(){
-	app.use(express.errorHandler());
-});
 
 require('./app/server/router')(app);
 
