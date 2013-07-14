@@ -60,16 +60,11 @@ AccountValidator.prototype.validateForm = function()
 {
     var e = [];
     for (var i=0; i < this.controlGroups.length; i++) this.controlGroups[i].removeClass('error');
-    if (this.validateName(this.formFields[0].val()) == false) {
-	this.controlGroups[0].addClass('error'); e.push('Please enter your full name');
-    }
+
     if (this.validateEmail(this.formFields[1].val()) == false) {
 	this.controlGroups[1].addClass('error'); e.push('Please enter a valid e-mail address');
     }
-    if (this.validateName(this.formFields[2].val()) == false) {
-	this.controlGroups[2].addClass('error');
-	e.push('Please enter a valid group name');
-    }
+
     if (this.validateName(this.formFields[3].val()) == false) {
 	this.controlGroups[3].addClass('error');
 	e.push('Usernames must be 3-16 characters long, and must only contain letters a-z, numbers and underscores');
