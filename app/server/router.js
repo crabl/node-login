@@ -430,6 +430,16 @@ module.exports = function(app) {
         });	
     });
 
+    app.get('/participantsAdmin', restrictAdmin, function(req, res) {
+	AM.getUserObject(req.param('user'), function(o) {
+	    var groupUser = o;
+
+	    res.render('print-participants', {
+		groupInfo : groupUser
+	    });
+	});
+    });
+
     // billing information page //
     // this page has no corresponding POST request because it's just a summary //
     app.get('/billing', restrict, function(req, res) {
@@ -638,6 +648,12 @@ module.exports = function(app) {
 	})
     });
     
+    app.get('/shirtAdmin', restrictAdmin, function(req, res) {
+        AM.getAllRecords( function(e, accounts){
+            res.render('shirts-admin', { title : 'Shirt Order List', accts : accounts });
+        })
+    });
+
     app.post('/delete', restrict, function(req, res){
 	AM.deleteAccount(req.body.id, function(e, obj){
 	    if (!e){

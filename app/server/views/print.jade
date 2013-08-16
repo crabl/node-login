@@ -10,6 +10,8 @@ block content
           ul.nav
             li.active
               a(href='/print') Admin Home
+            li
+              a(href='/shirtAdmin') Shirt Report
         button#btn-logout.btn.btn-primary
           i.icon-lock.icon-white
           | Sign Out
@@ -20,14 +22,16 @@ block content
         tr
           th(style='width:40px') #
           th(style='width:180px') Group Name
-          th(style='width:200px') Location
+          th(style='width:200px') Admin E-mail
           th(style='width:180px') Username
           th Account Created
+          th Participants
       tbody
       - for (var i = 0; i < accts.length; i++)
         tr
           td= i+1
           td <a href="/billingAdmin?user=#{accts[i].user}">#{accts[i].groupname}</a>
-          td= accts[i].country
+          td= accts[i].email
           td= accts[i].user
           td= accts[i].date
+          td <a href="/participantsAdmin?user=#{accts[i].user}">#{accts[i].participants.length}</a>

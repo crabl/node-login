@@ -1,0 +1,145 @@
+extends layout
+
+block content
+  div.navbar.navbar-fixed-top
+    div.navbar-inner
+      div.container-fluid
+        ul#global-nav.nav.pull-left
+          a(href='#').brand WCHFF 2013
+          ul.nav
+            li
+              a(href='/print') Admin Home
+            li.active
+              a(href='/shirtAdmin') Shirt Report
+        button#btn-logout.btn.btn-primary
+          i.icon-lock.icon-white
+          | Sign Out
+
+  div.container(style='margin:100px 20px;')
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th(style='width:40px') #
+          th(style='width:180px') Group Name
+          th Mens Short Sleeve
+          th Ladies Short Sleeve
+          th Youth Short Sleeve
+          th Mens Long Sleeve
+          th Ladies Long Sleeve
+          th Youth Long Sleeve
+        tr
+          td &nbsp;
+          td &nbsp;
+          td 
+            table
+              tr        
+                td XS
+                td S
+                td M
+                td L
+                td XL
+                td XXL
+                td 3XL
+          td
+            table
+              tr
+                td XS
+                td S
+                td M
+                td L
+                td XL
+                td XXL
+                td 3XL
+          td
+            table
+              tr
+                td S
+                td M
+                td L
+                td XL
+          td
+            table
+              tr
+                td XS
+                td S
+                td M
+                td L
+                td XL
+                td XXL
+                td 3XL
+          td
+            table
+              tr
+                td XS
+                td S
+                td M
+                td L
+                td XL
+                td XXL
+                td 3XL
+          td
+            table
+              tr
+                td S
+                td M
+                td L
+                td XL
+      tbody
+      - for (var i = 0; i < accts.length; i++)
+        tr
+          td= i+1
+          td= accts[i].groupname
+          td
+            table
+              tr
+                td= accts[i].tshirts.menshortxs
+                td= accts[i].tshirts.menshorts
+                td= accts[i].tshirts.menshortm
+                td= accts[i].tshirts.menshortl
+                td= accts[i].tshirts.menshortxl
+                td= accts[i].tshirts.menshortxxl
+                td= accts[i].tshirts.menshortxxxl
+          td
+            table
+              tr
+                td= accts[i].tshirts.ladiesshortxs
+                td= accts[i].tshirts.ladiesshorts
+                td= accts[i].tshirts.ladiesshortm
+                td= accts[i].tshirts.ladiesshortl
+                td= accts[i].tshirts.ladiesshortxl
+                td= accts[i].tshirts.ladiesshortxxl
+                td= accts[i].tshirts.ladiesshortxxxl
+          td
+            table
+              tr
+                td= accts[i].tshirts.youthshorts
+                td= accts[i].tshirts.youthshortm
+                td= accts[i].tshirts.youthshortl
+                td= accts[i].tshirts.youthshortxl
+          td
+            table
+              tr
+                td= accts[i].tshirts.menlongxs
+                td= accts[i].tshirts.menlongs
+                td= accts[i].tshirts.menlongm
+                td= accts[i].tshirts.menlongl
+                td= accts[i].tshirts.menlongxl
+                td= accts[i].tshirts.menlongxxl
+                td= accts[i].tshirts.menlongxxxl
+          td
+            table
+              tr
+                td= accts[i].tshirts.ladieslongxs
+                td= accts[i].tshirts.ladieslongs
+                td= accts[i].tshirts.ladieslongm
+                td= accts[i].tshirts.ladieslongl
+                td= accts[i].tshirts.ladieslongxl
+                td= accts[i].tshirts.ladieslongxxl
+                td= accts[i].tshirts.ladieslongxxxl
+          td
+            table
+              tr
+                td= accts[i].tshirts.youthlongs
+                td= accts[i].tshirts.youthlongm
+                td= accts[i].tshirts.youthlongl
+                td= accts[i].tshirts.youthlongxl

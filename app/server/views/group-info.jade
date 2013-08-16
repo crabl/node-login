@@ -1,0 +1,22 @@
+html
+  head
+    title Group Info for #{groupInfo.groupname}
+
+  body
+
+    h1 Group Info - #{groupInfo.groupname}
+    table(border='1')
+      thead
+        tr
+          th Last Name
+          th First Name
+          th Date of Birth
+          th Gender
+          th Role
+       for participant in groupInfo.participants
+         tr 
+           td #{participant.lastname}
+           td #{participant.firstname}
+           td #{participant.dob}
+           td #{participant.gender}
+           td #{participant.role}
