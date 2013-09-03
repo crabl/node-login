@@ -12,6 +12,8 @@ block content
               a(href='/print') Admin Home
             li
               a(href='/shirtAdmin') Shirt Report
+            li
+              a(href='/transportAdmin') Transport Report
         button#btn-logout.btn.btn-primary
           i.icon-lock.icon-white
           | Sign Out
@@ -26,6 +28,7 @@ block content
           th(style='width:180px') Username
           th Account Created
           th Participants
+          td Dances
       tbody
       - for (var i = 0; i < accts.length; i++)
         tr
@@ -35,3 +38,4 @@ block content
           td= accts[i].user
           td= accts[i].date
           td <a href="/participantsAdmin?user=#{accts[i].user}">#{accts[i].participants.length}</a>
+          td <a href="/dancesAdmin?user=#{accts[i].user}">Dance Info &raquo;</a>

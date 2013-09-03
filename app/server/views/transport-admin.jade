@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  div.navbar.navbar-fixed-top
+    div.navbar-inner
+      div.container-fluid
+        ul#global-nav.nav.pull-left
+          a(href='#').brand WCHFF 2013
+          ul.nav
+            li
+              a(href='/print') Admin Home
+            li
+              a(href='/shirtAdmin') Shirt Report
+            li.active
+              a(href='/transportAdmin') Transport Report
+        button#btn-logout.btn.btn-primary
+          i.icon-lock.icon-white
+          | Sign Out
+
+  div.container(style='margin:100px 20px;')
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th(style='width:40px') #
+          th(style='width:180px') Group Name
+          th Arrival Method
+          th Number of People
+          th Carrier
+          th Flight
+          th Arrival Time
+          th Departure Method
+          th Number of People
+          th Carrier
+          th Flight
+          th Departure Time
+          th Remarks
+      tbody
+      - for (var i = 0; i < accts.length; i++)
+        tr
+          td= i+1
+          td= accts[i].groupname
+          td= accts[i].transport.arrival.method
+          td= accts[i].transport.arrival.numpeople
+          td= accts[i].transport.arrival.carrier
+          td= accts[i].transport.arrival.flight
+          td= accts[i].transport.arrival.eta_hour + ":" + accts[i].transport.arrival.eta_minute + " " + accts[i].transport.arrival.eta_ampm
+          td= accts[i].transport.departure.method
+          td= accts[i].transport.departure.numpeople
+          td= accts[i].transport.departure.carrier
+          td= accts[i].transport.departure.flight
+          td= accts[i].transport.departure.eta_hour + ":" + accts[i].transport.departure.eta_minute + " " + accts[i].transport.departure.eta_ampm
+          td= accts[i].transport.remarks
+   

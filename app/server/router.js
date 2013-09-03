@@ -418,7 +418,6 @@ module.exports = function(app) {
     app.get('/billingAdmin', restrictAdmin, function(req, res) {
 	AM.getUserObject(req.param('user'), function(o) {
             var billingUser = o;
-
 	    res.render('billing-admin', { 
 		locals : {
 		    title : 'WCHFF 2013 - Admin Billing Information',
@@ -433,12 +432,28 @@ module.exports = function(app) {
     app.get('/participantsAdmin', restrictAdmin, function(req, res) {
 	AM.getUserObject(req.param('user'), function(o) {
 	    var groupUser = o;
-
 	    res.render('print-participants', {
 		groupInfo : groupUser
 	    });
 	});
     });
+
+    app.get('/dancesAdmin', restrictAdmin, function(req, res) {
+        AM.getUserObject(req.param('user'), function(o) {
+            var groupUser = o;
+            res.render('print-dances', {
+                groupInfo : groupUser
+            });
+        });
+    });
+
+
+    app.get('/transportAdmin', restrictAdmin, function(req, res) {
+        AM.getAllRecords( function(e, accounts){
+            res.render('transport-admin', { title : 'Transport List', accts : accounts });
+        })
+    });
+    
 
     // billing information page //
     // this page has no corresponding POST request because it's just a summary //

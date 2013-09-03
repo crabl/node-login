@@ -1,0 +1,57 @@
+
+extends layout
+
+block content
+  div.navbar.navbar-fixed-top
+    div.navbar-inner
+      div.container-fluid
+        ul#global-nav.nav.pull-left
+          a(href='#').brand WCHFF 2013
+          ul.nav
+            li.active
+              a(href='/print') Admin Home
+            li
+              a(href='/shirtAdmin') Shirt Report
+            li
+              a(href='/transportAdmin') Transport Report
+        button#btn-logout.btn.btn-primary
+          i.icon-lock.icon-white
+          | Sign Out
+
+  div.container(style='margin:100px 20px;')
+    h1 Dance Information
+    h2 
+       em #{groupInfo.groupname}
+    br
+
+    - for (var i = 0; i < 3; i++)    
+      h3 Dance #{i+1}
+      br
+      table.table.table-bordered.table-striped
+        tr
+          td(style='width:140px') <strong>Hungarian Title</strong>
+          td #{groupInfo.dances.dance_hungariantitle[i]}
+        tr
+          td <strong>English Title</strong>
+          td #{groupInfo.dances.dance_englishtitle[i]}
+        tr
+          td <strong>Length</strong>
+          td #{groupInfo.dances.dance_length[i]} minutes
+        tr
+          td <strong>Choreographer</strong>
+          td #{groupInfo.dances.dance_choreographer[i]}
+        tr
+          td <strong>Instructed by</strong>
+          td #{groupInfo.dances.dance_instructor[i]}
+        tr
+          td <strong>Region</strong>
+          td #{groupInfo.dances.dance_region[i]}
+        tr
+          td <strong>Type</strong>
+          td #{groupInfo.dances.dance_type[i]}
+        tr
+          td <strong>Village</strong>
+          td #{groupInfo.dances.dance_village[i]}
+        tr
+          td <strong>Description</strong>
+          td #{groupInfo.dances.dance_description[i]}
